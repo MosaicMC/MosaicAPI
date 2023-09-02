@@ -1,0 +1,2 @@
+# Mosaica
+Plugin loader
