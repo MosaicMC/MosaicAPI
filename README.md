@@ -1,2 +1,2 @@
-# Mosaica
-Plugin loader
+# MosaicAPI
+Plugin api
