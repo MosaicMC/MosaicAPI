@@ -1,5 +1,5 @@
 plugins {
-    id("mosaic-internals") version  "1.0.0"
+    id("mosaic-internals")
 }
 
 

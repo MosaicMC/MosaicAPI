@@ -1,5 +1,5 @@
 plugins {
-    id("java")
+    `java-gradle-plugin`
 }
 
 group = "com.example"
