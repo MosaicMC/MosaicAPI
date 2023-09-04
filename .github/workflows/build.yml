@@ -8,6 +8,7 @@ jobs:
         # Use these Java versions
         java: [
           17,    # Current Java LTS & minimum supported by Minecraft
+          20
         ]
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
