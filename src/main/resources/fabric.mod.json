@@ -19,7 +19,7 @@
         "preLaunch": [
             {
                 "adapter": "kotlin",
-                "value": "io.github.mosaicmc.mosaicapi.internal.Main"
+                "value": "io.github.mosaicmc.mosaicapi.Main"
             }
         ]
     },
@@ -27,8 +27,8 @@
     ],
     "depends": {
         "fabricloader": ">=${loader_version}",
-        "minecraft": "~1.20",
+        "minecraft": ">=${minecraft_version}",
         "java": ">=17",
-        "fabric-language-kotlin": ">=1.10.10+kotlin.1.9.10"
+        "fabric-language-kotlin": ">=${fabric_kotlin_version}+kotlin.${kotlin_version}"
     }
 }

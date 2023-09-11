@@ -15,10 +15,6 @@
         <module name="Mosaica.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="17">
-      <module name="Mosaica.buildSrc" target="17" />
-      <module name="Mosaica.buildSrc.main" target="17" />
-      <module name="Mosaica.buildSrc.test" target="17" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="20" />
   </component>
 </project>

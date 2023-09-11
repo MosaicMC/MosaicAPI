@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="4">
   <component name="AdditionalModuleElements">
-    <content url="file://$MODULE_DIR$/../../src/main" dumb="true">
-      <sourceFolder url="file://$MODULE_DIR$/../../src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../../src/main/kotlin" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../../src/main/resources" type="java-resource" />
+    <content url="file://$MODULE_DIR$/../../build/generated/sources/annotationProcessor/java/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../build/generated/sources/annotationProcessor/java/main" isTestSource="false" generated="true" />
     </content>
   </component>
   <component name="FacetManager">
@@ -22,6 +20,6 @@
     <option name="srgType" value="SRG" />
   </component>
   <component name="SonarLintModuleSettings">
-    <option name="uniqueId" value="eedb0047-5738-411f-ba02-d4ed5b935728" />
+    <option name="uniqueId" value="a5553463-1d85-4ad1-8e67-5b0ad663b52d" />
   </component>
 </module>

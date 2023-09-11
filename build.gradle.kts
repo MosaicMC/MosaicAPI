@@ -1,28 +1,31 @@
 import juuxel.vineflowerforloom.api.DecompilerBrand
+import java.text.SimpleDateFormat
+import java.util.*
 
 plugins {
     id("fabric-loom") version "1.3-SNAPSHOT"
     id("maven-publish")
-    id("org.jetbrains.kotlin.jvm")
-    id("com.ncorti.ktfmt.gradle") version "0.13.0"
     id("io.github.juuxel.loom-vineflower") version "1.11.0"
     id("org.jetbrains.dokka") version "1.9.0"
+    id("com.diffplug.spotless") version "6.21.0"
 }
 
 loom {
     serverOnlyMinecraftJar()
 }
+
 vineflower {
     brand = DecompilerBrand.VINEFLOWER
 }
 
-val sourceCompatibility = JavaVersion.VERSION_17
-val targetCompatibility = JavaVersion.VERSION_17
+val sourceCompatibility = JavaVersion.VERSION_20
+val targetCompatibility = JavaVersion.VERSION_20
 val archivesBaseName = project.properties["archivesBaseName"].toString()
-val dokkaHtmlJar: String = "dokkaHtmlJar"
-val dokkaJavadocJar: String = "dokkaJavadocJar"
+val dokkaHtmlJar = "dokkaHtmlJar"
+val dokkaJavadocJar = "dokkaJavadocJar"
+val dataFormat = SimpleDateFormat("yyyy.MM.dd.HH").format(Date())!!
 
-version = project.properties["mod_version"].toString()
+version = "${dataFormat}+${project.properties["mod_version"]}"
 group = project.properties["maven_group"].toString()
 
 repositories {
@@ -42,9 +45,8 @@ dependencies {
         }
     )
 
-    modImplementation("net.fabricmc:fabric-loader:${project.properties["loader_version"]}")
-    modImplementation("net.fabricmc:fabric-language-kotlin:${project.properties["fabric_kotlin_version"]}+kotlin.${project.properties["kotlin_version"]}")
-    testImplementation("net.fabricmc:fabric-loader-junit:${project.properties["loader_version"]}")
+    modImplementation(group = "net.fabricmc", name = "fabric-loader", version = "${project.properties["loader_version"]}")
+    compileOnly(group = "jakarta.annotation", name = "jakarta.annotation-api", version = "2.1.1")
 
     val mixinExtras = "com.github.llamalad7.mixinextras:mixinextras-fabric:${project.properties["mixin_extras"]}"
 
@@ -52,7 +54,14 @@ dependencies {
 }
 
 tasks.processResources {
-    expand(project.properties)
+    expand(mapOf(
+        "version" to project.version,
+        "mod_id" to project.properties["mod_id"],
+        "loader_version" to project.properties["loader_version"],
+        "fabric_kotlin_version" to project.properties["fabric_kotlin_version"],
+        "kotlin_version" to project.properties["kotlin_version"],
+        "minecraft_version" to project.properties["minecraft_version"],
+    ))
 }
 
 tasks.build {
@@ -70,23 +79,8 @@ tasks.jar {
     }
 }
 
-tasks.test {
-    useJUnitPlatform()
-    systemProperty("fabric.side", "server")
-}
-
 tasks.compileJava {
     options.release = 17
-}
-
-tasks.compileKotlin {
-    kotlinOptions.jvmTarget = "17"
-    kotlinOptions.freeCompilerArgs += listOf(
-        "-Xlambdas=indy",
-        "-Xno-param-assertions",
-        "-Xno-call-assertions",
-        "-Xno-receiver-assertions",
-    )
 }
 
 tasks.register<Jar>("dokkaHtmlJar") {
@@ -106,6 +100,9 @@ java {
     withJavadocJar()
 }
 
-ktfmt {
-    kotlinLangStyle()
+spotless {
+    java {
+        palantirJavaFormat()
+        formatAnnotations()
+    }
 }
