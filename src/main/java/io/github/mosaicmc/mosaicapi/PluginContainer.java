@@ -1,9 +1,8 @@
 package io.github.mosaicmc.mosaicapi;
 
+import java.nio.file.Path;
 import net.minecraft.server.MinecraftServer;
 import org.slf4j.Logger;
-
-import java.nio.file.Path;
 
 public interface PluginContainer extends Comparable<PluginContainer> {
     MinecraftServer getServer();
