@@ -1,10 +1,11 @@
 package io.github.mosaicmc.mosaicapi;
 
-import java.nio.file.Path;
 import net.minecraft.server.MinecraftServer;
 import org.slf4j.Logger;
 
-public interface PluginContainer extends Comparable<PluginContainer> {
+import java.nio.file.Path;
+
+public sealed interface PluginContainer extends Comparable<PluginContainer> permits PluginContainerImpl {
     MinecraftServer getServer();
 
     Path getConfigDir();
