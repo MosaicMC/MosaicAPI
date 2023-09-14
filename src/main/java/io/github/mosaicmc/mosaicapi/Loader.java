@@ -1,10 +1,16 @@
 package io.github.mosaicmc.mosaicapi;
 
 import com.google.common.collect.ImmutableBiMap;
-import java.util.NoSuchElementException;
+import net.minecraft.server.MinecraftServer;
 
-public sealed interface Loader permits LoaderImpl {
-    Loader INSTANCE = new LoaderImpl();
+public abstract sealed class Loader permits LoaderImpl {
+    public final MinecraftServer server;
+    public final ImmutableBiMap<String, PluginContainer> plugins;
 
-    ImmutableBiMap<String, PluginContainer> getPlugins() throws NoSuchElementException;
+    public Loader(MinecraftServer server) {
+        this.server = server;
+        this.plugins = loadPlugins();
+    }
+
+    protected abstract ImmutableBiMap<String, PluginContainer> loadPlugins();
 }

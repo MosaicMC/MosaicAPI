@@ -10,27 +10,9 @@ plugins {
     id("com.diffplug.spotless") version "6.21.0"
 }
 
-loom {
-    serverOnlyMinecraftJar()
-}
-
-vineflower {
-    brand = DecompilerBrand.VINEFLOWER
-}
-
-val sourceCompatibility = JavaVersion.VERSION_20
-val targetCompatibility = JavaVersion.VERSION_20
-val archivesBaseName = project.properties["archivesBaseName"].toString()
-val dokkaHtmlJar = "dokkaHtmlJar"
-val dokkaJavadocJar = "dokkaJavadocJar"
-val dataFormat = SimpleDateFormat("yyyy.MM.dd.HH").format(Date())!!
-
-version = "${dataFormat}+${project.properties["mod_version"]}"
-group = project.properties["maven_group"].toString()
-
 repositories {
-    maven { url = uri("https://jitpack.io") }
-    maven { url = uri("https://maven.parchmentmc.org")}
+    maven("https://jitpack.io")
+    maven("https://maven.parchmentmc.org")
 }
 
 dependencies {
@@ -46,12 +28,31 @@ dependencies {
     )
 
     modImplementation(group = "net.fabricmc", name = "fabric-loader", version = "${project.properties["loader_version"]}")
-    compileOnly(group = "jakarta.annotation", name = "jakarta.annotation-api", version = "2.1.1")
+    compileOnly(group = "jakarta.annotation", name = "jakarta.annotation-api", version = "2.2")
 
     val mixinExtras = "com.github.llamalad7.mixinextras:mixinextras-fabric:${project.properties["mixin_extras"]}"
 
     include(implementation(annotationProcessor(mixinExtras)!!)!!)
 }
+
+loom {
+    serverOnlyMinecraftJar()
+}
+
+vineflower {
+    brand = DecompilerBrand.VINEFLOWER
+}
+
+val sourceCompatibility = JavaVersion.VERSION_20
+val targetCompatibility = JavaVersion.VERSION_20
+val archivesBaseName = project.properties["archivesBaseName"]
+val dokkaHtmlJar = "dokkaHtmlJar"
+val dokkaJavadocJar = "dokkaJavadocJar"
+val dataFormat = SimpleDateFormat("yyyy.MM.dd.HH").format(Date())!!
+
+version = "${dataFormat}+${project.properties["mod_version"]}"
+group = project.properties["maven_group"].toString()
+
 
 tasks.processResources {
     expand(mapOf(

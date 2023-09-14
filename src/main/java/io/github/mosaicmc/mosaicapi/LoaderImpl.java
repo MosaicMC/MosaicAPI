@@ -1,15 +1,16 @@
 package io.github.mosaicmc.mosaicapi;
 
 import com.google.common.collect.ImmutableBiMap;
-import java.util.NoSuchElementException;
-import org.jetbrains.annotations.ApiStatus;
+import net.minecraft.server.MinecraftServer;
 
-public final class LoaderImpl implements Loader {
-    @ApiStatus.Internal
-    LoaderImpl() {}
+public final class LoaderImpl extends Loader {
+    public LoaderImpl(MinecraftServer server) {
+        super(server);
+    }
 
     @Override
-    public ImmutableBiMap<String, PluginContainer> getPlugins() throws NoSuchElementException {
-        throw new NoSuchElementException("plugins aren't yet loaded");
+    protected ImmutableBiMap<String, PluginContainer> loadPlugins() {
+        final var pluginsBuilder = ImmutableBiMap.<String, PluginContainer>builder();
+        return pluginsBuilder.build();
     }
 }

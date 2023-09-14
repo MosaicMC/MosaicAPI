@@ -17,18 +17,15 @@
     "environment": "*",
     "entrypoints": {
         "preLaunch": [
-            {
-                "adapter": "kotlin",
-                "value": "io.github.mosaicmc.mosaicapi.Main"
-            }
+            "io.github.mosaicmc.mosaicapi.Main"
         ]
     },
     "mixins": [
+        "mosaicapi.mixins.json"
     ],
     "depends": {
         "fabricloader": ">=${loader_version}",
         "minecraft": ">=${minecraft_version}",
-        "java": ">=17",
-        "fabric-language-kotlin": ">=${fabric_kotlin_version}+kotlin.${kotlin_version}"
+        "java": ">=17"
     }
 }
