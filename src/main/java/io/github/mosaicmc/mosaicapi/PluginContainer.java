@@ -1,20 +1,41 @@
 package io.github.mosaicmc.mosaicapi;
 
 import java.nio.file.Path;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.MinecraftServer;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public sealed interface PluginContainer extends Comparable<PluginContainer> permits PluginContainerImpl {
-    MinecraftServer getServer();
+public abstract sealed class PluginContainer implements Comparable<PluginContainer> permits PluginContainerImpl {
+    protected final MinecraftServer server;
+    protected final Path configDir;
+    protected final String name;
+    protected final Logger logger;
 
-    Path getConfigDir();
+    protected PluginContainer(MinecraftServer server, String name) {
+        this.server = server;
+        this.configDir = FabricLoader.getInstance().getConfigDir().resolve(name);
+        {
+            final var configDirFile = this.configDir.toFile();
+            if (!configDirFile.exists()) {
+                //noinspection ResultOfMethodCallIgnored
+                configDirFile.mkdirs();
+            }
+        }
+        this.name = name;
+        this.logger = LoggerFactory.getLogger(name);
+    }
 
-    String getName();
+    public abstract MinecraftServer getServer();
 
-    Logger getLogger();
+    public abstract Path getConfigDir();
+
+    public abstract String getName();
+
+    public abstract Logger getLogger();
 
     @Override
-    default int compareTo(PluginContainer other) {
+    public int compareTo(PluginContainer other) {
         return getName().compareTo(other.getName());
     }
 }

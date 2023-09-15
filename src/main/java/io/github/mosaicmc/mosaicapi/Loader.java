@@ -7,7 +7,7 @@ public abstract sealed class Loader permits LoaderImpl {
     public final MinecraftServer server;
     public final ImmutableBiMap<String, PluginContainer> plugins;
 
-    public Loader(MinecraftServer server) {
+    protected Loader(MinecraftServer server) {
         this.server = server;
         this.plugins = loadPlugins();
     }

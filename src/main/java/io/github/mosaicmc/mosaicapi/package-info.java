@@ -1,6 +1,6 @@
-@CheckReturnValue
-@Nonnull
+@FieldsAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 package io.github.mosaicmc.mosaicapi;
 
-import jakarta.annotation.Nonnull;
-import org.jetbrains.annotations.CheckReturnValue;
+import net.minecraft.FieldsAreNonnullByDefault;
+import net.minecraft.MethodsReturnNonnullByDefault;

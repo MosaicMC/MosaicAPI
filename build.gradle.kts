@@ -28,7 +28,6 @@ dependencies {
     )
 
     modImplementation(group = "net.fabricmc", name = "fabric-loader", version = "${project.properties["loader_version"]}")
-    compileOnly(group = "jakarta.annotation", name = "jakarta.annotation-api", version = "2.2")
 
     val mixinExtras = "com.github.llamalad7.mixinextras:mixinextras-fabric:${project.properties["mixin_extras"]}"
 
