@@ -10,5 +10,6 @@ import org.spongepowered.asm.mixin.Unique;
 public final class MinecraftServerMixin {
     @Unique private final MosaicServer mosaicServer = MosaicServer.of((MinecraftServer) (Object) this);
 
-    @Unique @SuppressWarnings("unused") private final Loader loader = Loader.of(mosaicServer);
+    @Unique @SuppressWarnings("unused")
+    private final Loader loader = Loader.of(mosaicServer);
 }
