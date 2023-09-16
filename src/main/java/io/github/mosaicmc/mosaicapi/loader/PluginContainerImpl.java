@@ -1,9 +1,8 @@
 package io.github.mosaicmc.mosaicapi.loader;
 
 import io.github.mosaicmc.mosaicapi.mc.MosaicServer;
-import org.slf4j.Logger;
-
 import java.nio.file.Path;
+import org.slf4j.Logger;
 
 public final class PluginContainerImpl extends PluginContainer {
     PluginContainerImpl(MosaicServer server, String name) {
