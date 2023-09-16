@@ -1,6 +1,7 @@
 package io.github.mosaicmc.mosaicapi;
 
 import java.nio.file.Path;
+import java.util.Objects;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.MinecraftServer;
 import org.slf4j.Logger;
@@ -37,5 +38,17 @@ public abstract sealed class PluginContainer implements Comparable<PluginContain
     @Override
     public int compareTo(PluginContainer other) {
         return getName().compareTo(other.getName());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PluginContainer that)) return false;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }
