@@ -1,19 +1,23 @@
-package io.github.mosaicmc.mosaicapi;
+package io.github.mosaicmc.mosaicapi.loader;
 
+import io.github.mosaicmc.mosaicapi.mc.MosaicServer;
 import java.nio.file.Path;
 import java.util.Objects;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.server.MinecraftServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract sealed class PluginContainer implements Comparable<PluginContainer> permits PluginContainerImpl {
-    protected final MinecraftServer server;
+    protected final MosaicServer server;
     protected final Path configDir;
     protected final String name;
     protected final Logger logger;
 
-    protected PluginContainer(MinecraftServer server, String name) {
+    public static PluginContainer of(MosaicServer server, String name) {
+        return new PluginContainerImpl(server, name);
+    }
+
+    protected PluginContainer(MosaicServer server, String name) {
         this.server = server;
         this.configDir = FabricLoader.getInstance().getConfigDir().resolve(name);
         {
@@ -27,7 +31,7 @@ public abstract sealed class PluginContainer implements Comparable<PluginContain
         this.logger = LoggerFactory.getLogger(name);
     }
 
-    public abstract MinecraftServer getServer();
+    public abstract MosaicServer getServer();
 
     public abstract Path getConfigDir();
 

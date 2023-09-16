@@ -1,16 +1,17 @@
-package io.github.mosaicmc.mosaicapi;
+package io.github.mosaicmc.mosaicapi.loader;
 
-import java.nio.file.Path;
-import net.minecraft.server.MinecraftServer;
+import io.github.mosaicmc.mosaicapi.mc.MosaicServer;
 import org.slf4j.Logger;
 
+import java.nio.file.Path;
+
 public final class PluginContainerImpl extends PluginContainer {
-    public PluginContainerImpl(MinecraftServer server, String name) {
+    PluginContainerImpl(MosaicServer server, String name) {
         super(server, name);
     }
 
     @Override
-    public MinecraftServer getServer() {
+    public MosaicServer getServer() {
         return this.server;
     }
 
