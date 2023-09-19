@@ -1,12 +1,15 @@
 package io.github.mosaicmc.mosaicapi.loader;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.BiMap;
+import io.github.mosaicmc.mosaicapi.event.Event;
+import io.github.mosaicmc.mosaicapi.event.EventHandler;
+import io.github.mosaicmc.mosaicapi.event.EventHandlerImpl;
 import io.github.mosaicmc.mosaicapi.mc.MosaicServer;
 
 public abstract sealed class Loader permits LoaderImpl {
-    public final MosaicServer server;
-    public final ImmutableMap<PluginContainer, ImmutableList<PluginInitializer>> plugins;
+    protected final MosaicServer server;
+    protected final BiMap<String, PluginContainer> pluginsCache;
+    protected final EventHandler eventHandler;
 
     public static Loader of(MosaicServer server) {
         return new LoaderImpl(server);
@@ -14,10 +17,20 @@ public abstract sealed class Loader permits LoaderImpl {
 
     protected Loader(MosaicServer server) {
         this.server = server;
-        this.plugins = createPluginsMap();
+        this.pluginsCache = createPluginsMap();
+        this.eventHandler = new EventHandlerImpl();
+        loadPlugins();
     }
 
-    protected abstract ImmutableMap<PluginContainer, ImmutableList<PluginInitializer>> createPluginsMap();
+    public abstract void unloadPlugin(String id);
 
-    protected abstract PluginContainer mapToPlugin(String name);
+    public void unloadPlugin(PluginContainer pluginContainer) {
+        unloadPlugin(pluginContainer.id);
+    }
+
+    protected abstract BiMap<String, PluginContainer> createPluginsMap();
+
+    protected abstract void loadPlugins();
+
+    public abstract <T extends Event<T>> void fireEvent(T event);
 }

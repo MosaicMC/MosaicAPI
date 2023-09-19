@@ -18,7 +18,8 @@
     "entrypoints": {
         "preLaunch": [
             "io.github.mosaicmc.mosaicapi.Main"
-        ]
+        ],
+        "plugin" : []
     },
     "mixins": [
         "mosaicapi.mixins.json"

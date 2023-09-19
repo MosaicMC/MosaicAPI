@@ -12,4 +12,6 @@ public abstract sealed class MosaicServer permits MosaicServerImpl {
     protected MosaicServer(MinecraftServer server) {
         this.server = server;
     }
+
+    public abstract int serverSize();
 }

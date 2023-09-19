@@ -6,4 +6,9 @@ public final class MosaicServerImpl extends MosaicServer {
     MosaicServerImpl(MinecraftServer server) {
         super(server);
     }
+
+    @Override
+    public int serverSize() {
+        return server.getPlayerCount();
+    }
 }

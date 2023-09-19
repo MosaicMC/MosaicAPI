@@ -102,7 +102,7 @@ java {
 
 spotless {
     java {
-        palantirJavaFormat()
+        palantirJavaFormat("2.38.0")
         formatAnnotations()
     }
 }

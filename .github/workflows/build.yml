@@ -7,8 +7,7 @@ jobs:
       matrix:
         # Use these Java versions
         java: [
-          17,    # Current Java LTS & minimum supported by Minecraft
-          20
+          21
         ]
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
@@ -21,7 +20,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: ${{ matrix.java }}
-          distribution: 'temurin'
+          distribution: 'oracle'
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
       - name: build
