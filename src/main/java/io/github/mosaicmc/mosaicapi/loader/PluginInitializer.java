@@ -1,11 +1,12 @@
 package io.github.mosaicmc.mosaicapi.loader;
 
-import io.github.mosaicmc.mosaicapi.event.EventHandler;
+import io.github.mosaicmc.mosaicapi.event.EventRegistryBuilder;
+import io.github.mosaicmc.mosaicapi.event.ListenerBuilder;
 
 public interface PluginInitializer {
-    void init(PluginContainer plugin, EventHandler.ListenerBuilder listenerBuilder);
+    void init(PluginContainer plugin, ListenerBuilder listenerBuilder);
 
-    default void registerEvents(PluginContainer plugin, EventHandler.EventRegistryBuilder eventHandler) {
+    default void registerEvents(PluginContainer plugin, EventRegistryBuilder eventHandler) {
         // For override
     }
 

@@ -17,27 +17,6 @@ public abstract sealed class PluginContainer implements Comparable<PluginContain
     protected final List<PluginInitializer> initializers;
     protected final Loader loader;
 
-    public static PluginContainer.Builder builder(String name, MosaicServer server, Loader loader) {
-        return new PluginContainerImpl.BuilderImpl(name, server, loader);
-    }
-
-    public abstract static sealed class Builder permits PluginContainerImpl.BuilderImpl {
-        protected final String name;
-        protected final MosaicServer server;
-        protected final List<PluginInitializer> initializers = new ArrayList<>();
-        protected final Loader loader;
-
-        protected Builder(String name, MosaicServer server, Loader loader) {
-            this.name = name;
-            this.server = server;
-            this.loader = loader;
-        }
-
-        public abstract void add(PluginInitializer init);
-
-        public abstract PluginContainer build();
-    }
-
     protected PluginContainer(MosaicServer server, String id, List<PluginInitializer> initializers, Loader loader) {
         this.server = server;
         this.configDir = FabricLoader.getInstance().getConfigDir().resolve(id);
@@ -52,6 +31,10 @@ public abstract sealed class PluginContainer implements Comparable<PluginContain
         this.logger = LoggerFactory.getLogger(id);
         this.initializers = initializers;
         this.loader = loader;
+    }
+
+    public static PluginContainer.Builder builder(String name, MosaicServer server, Loader loader) {
+        return new PluginContainerImpl.BuilderImpl(name, server, loader);
     }
 
     public abstract Loader getLoader();
@@ -79,5 +62,22 @@ public abstract sealed class PluginContainer implements Comparable<PluginContain
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public abstract static sealed class Builder permits PluginContainerImpl.BuilderImpl {
+        protected final String name;
+        protected final MosaicServer server;
+        protected final List<PluginInitializer> initializers = new ArrayList<>();
+        protected final Loader loader;
+
+        protected Builder(String name, MosaicServer server, Loader loader) {
+            this.name = name;
+            this.server = server;
+            this.loader = loader;
+        }
+
+        public abstract void add(PluginInitializer init);
+
+        public abstract PluginContainer build();
     }
 }

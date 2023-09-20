@@ -15,22 +15,6 @@ public final class PluginContainerImpl extends PluginContainer {
         return loader;
     }
 
-    protected static final class BuilderImpl extends Builder {
-        BuilderImpl(String name, MosaicServer server, Loader loader) {
-            super(name, server, loader);
-        }
-
-        @Override
-        public void add(PluginInitializer init) {
-            initializers.add(init);
-        }
-
-        @Override
-        public PluginContainer build() {
-            return new PluginContainerImpl(server, name, List.copyOf(initializers), loader);
-        }
-    }
-
     @Override
     public MosaicServer getServer() {
         return this.server;
@@ -49,5 +33,21 @@ public final class PluginContainerImpl extends PluginContainer {
     @Override
     public Logger getLogger() {
         return this.logger;
+    }
+
+    protected static final class BuilderImpl extends Builder {
+        BuilderImpl(String name, MosaicServer server, Loader loader) {
+            super(name, server, loader);
+        }
+
+        @Override
+        public void add(PluginInitializer init) {
+            initializers.add(init);
+        }
+
+        @Override
+        public PluginContainer build() {
+            return new PluginContainerImpl(server, name, List.copyOf(initializers), loader);
+        }
     }
 }

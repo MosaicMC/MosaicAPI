@@ -11,15 +11,15 @@ public abstract sealed class Loader permits LoaderImpl {
     protected final BiMap<String, PluginContainer> pluginsCache;
     protected final EventHandler eventHandler;
 
-    public static Loader of(MosaicServer server) {
-        return new LoaderImpl(server);
-    }
-
     protected Loader(MosaicServer server) {
         this.server = server;
         this.pluginsCache = createPluginsMap();
         this.eventHandler = new EventHandlerImpl();
         loadPlugins();
+    }
+
+    public static Loader of(MosaicServer server) {
+        return new LoaderImpl(server);
     }
 
     public abstract void unloadPlugin(String id);

@@ -1,10 +1,7 @@
 package io.github.mosaicmc.mosaicapi.event;
 
-import io.github.mosaicmc.mosaicapi.util.ExceptionConsumer;
-import io.github.mosaicmc.mosaicapi.util.Option;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 public final class EventHandlerImpl extends EventHandler {
     @Override
@@ -78,23 +75,5 @@ public final class EventHandlerImpl extends EventHandler {
     @Override
     protected <T extends Event<T>> List<Subscriber<T>> castSubscribers(List<Subscriber<?>> subscribers) {
         return (List<Subscriber<T>>) (Object) subscribers;
-    }
-
-    static final class EventRegistryBuilderImpl extends EventRegistryBuilder {
-
-        @Override
-        public <T extends Event<T>> void registerEvent(Class<T> eventClass) {
-            //noinspection unchecked
-            this.events.add((Class<Event<?>>) eventClass);
-        }
-    }
-
-    static final class ListenerBuilderImpl extends ListenerBuilder {
-
-        @Override
-        public <T extends Event<T>> void subscribe(
-                Class<T> eventClass, ExceptionConsumer<T> consumer, Option<Consumer<? super Throwable>> errorCaller) {
-            this.subscribers.add(new SubscriberImpl<>(eventClass, consumer, errorCaller));
-        }
     }
 }

@@ -42,8 +42,8 @@ vineflower {
     brand = DecompilerBrand.VINEFLOWER
 }
 
-val sourceCompatibility = JavaVersion.VERSION_20
-val targetCompatibility = JavaVersion.VERSION_20
+val sourceCompatibility = JavaVersion.VERSION_21
+val targetCompatibility = JavaVersion.VERSION_21
 val archivesBaseName = project.properties["archivesBaseName"]
 val dokkaHtmlJar = "dokkaHtmlJar"
 val dokkaJavadocJar = "dokkaJavadocJar"
@@ -80,7 +80,7 @@ tasks.jar {
 }
 
 tasks.compileJava {
-    options.release = 17
+    options.release = 21
 }
 
 tasks.register<Jar>("dokkaHtmlJar") {
