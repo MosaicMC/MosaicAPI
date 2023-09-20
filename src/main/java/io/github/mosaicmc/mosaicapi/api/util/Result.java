@@ -1,4 +1,4 @@
-package io.github.mosaicmc.mosaicapi.util;
+package io.github.mosaicmc.mosaicapi.api.util;
 
 public sealed interface Result<T, X> {
     record Ok<T, X>(T value) implements Result<T, X> {

@@ -1,9 +1,14 @@
-package io.github.mosaicmc.mosaicapi.event;
+package io.github.mosaicmc.mosaicapi.impl.event;
 
+import io.github.mosaicmc.mosaicapi.api.event.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public final class EventHandlerImpl extends EventHandler {
+public final class EventHandlerImpl implements EventHandler {
+    private final Map<Class<?>, List<Subscriber<?>>> events = new HashMap<>();
+
     @Override
     public <T extends Event<T>> List<Subscriber<T>> getEvent(Class<T> tClass, boolean check) {
         if (!events.containsKey(tClass)) {
@@ -17,13 +22,12 @@ public final class EventHandlerImpl extends EventHandler {
         return List.copyOf(castSubscribers(events.get(tClass)));
     }
 
-    @Override
-    protected <T extends Event<T>> void checkEvent(Class<T> tClass, List<Subscriber<?>> subscribers) {
+    private <T extends Event<T>> void checkEvent(Class<T> tClass, List<Subscriber<?>> subscribers) {
         for (var sub : subscribers) {
             if (sub == null) {
                 throw new NullPointerException();
             }
-            if (sub.eventClass != tClass) {
+            if (sub.getEventClass() != tClass) {
                 throw new ClassCastException();
             }
         }
@@ -52,7 +56,7 @@ public final class EventHandlerImpl extends EventHandler {
 
     @Override
     public void registerEventRegistry(EventRegistryBuilder eventRegistryBuilder) {
-        for (final var clazz : eventRegistryBuilder.events) {
+        for (final var clazz : eventRegistryBuilder.getEvents()) {
             if (events.containsKey(clazz)) {
                 throw new IllegalArgumentException("Event already registered");
             }
@@ -62,8 +66,8 @@ public final class EventHandlerImpl extends EventHandler {
 
     @Override
     public void registerListener(ListenerBuilder listenerBuilder) {
-        for (final var sub : listenerBuilder.subscribers) {
-            final var clazz = sub.eventClass;
+        for (final var sub : listenerBuilder.getSubscribers()) {
+            final var clazz = sub.getEventClass();
             if (!events.containsKey(clazz)) {
                 throw new IllegalArgumentException("Event " + clazz.getSimpleName() + " is not registered");
             }
@@ -72,8 +76,7 @@ public final class EventHandlerImpl extends EventHandler {
     }
 
     @SuppressWarnings("unchecked")
-    @Override
-    protected <T extends Event<T>> List<Subscriber<T>> castSubscribers(List<Subscriber<?>> subscribers) {
+    private <T extends Event<T>> List<Subscriber<T>> castSubscribers(List<Subscriber<?>> subscribers) {
         return (List<Subscriber<T>>) (Object) subscribers;
     }
 }

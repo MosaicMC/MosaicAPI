@@ -1,4 +1,4 @@
-package io.github.mosaicmc.mosaicapi.util;
+package io.github.mosaicmc.mosaicapi.api.util;
 
 public sealed interface Option<T> {
     record Some<T>(T value) implements Option<T> {

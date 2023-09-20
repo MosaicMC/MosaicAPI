@@ -1,7 +1,7 @@
-package io.github.mosaicmc.mosaicapi.loader;
+package io.github.mosaicmc.mosaicapi.api.loader;
 
-import io.github.mosaicmc.mosaicapi.event.EventRegistryBuilder;
-import io.github.mosaicmc.mosaicapi.event.ListenerBuilder;
+import io.github.mosaicmc.mosaicapi.api.event.EventRegistryBuilder;
+import io.github.mosaicmc.mosaicapi.api.event.ListenerBuilder;
 
 public interface PluginInitializer {
     void init(PluginContainer plugin, ListenerBuilder listenerBuilder);
