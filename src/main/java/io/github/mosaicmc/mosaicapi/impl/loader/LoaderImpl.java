@@ -10,9 +10,8 @@ import io.github.mosaicmc.mosaicapi.api.loader.PluginContainer;
 import io.github.mosaicmc.mosaicapi.api.loader.PluginInitializer;
 import io.github.mosaicmc.mosaicapi.api.mc.MosaicServer;
 import io.github.mosaicmc.mosaicapi.impl.event.EventHandlerImpl;
-import net.fabricmc.loader.api.FabricLoader;
-
 import java.util.HashMap;
+import net.fabricmc.loader.api.FabricLoader;
 
 public final class LoaderImpl implements Loader {
     private final MosaicServer server;
