@@ -16,9 +16,6 @@
     "license": "LGPL-3.0",
     "environment": "*",
     "entrypoints": {
-        "preLaunch": [
-            "io.github.mosaicmc.mosaicapi.Main"
-        ],
         "plugin" : []
     },
     "mixins": [

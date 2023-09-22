@@ -17,15 +17,7 @@ repositories {
 
 dependencies {
     minecraft("com.mojang:minecraft:${project.properties["minecraft_version"]}")
-    @Suppress("UnstableApiUsage")
-    mappings(
-        loom.layered {
-            officialMojangMappings()
-            parchment(
-                "org.parchmentmc.data:parchment-${project.properties["minecraft_version"]}:${project.properties["parchment_mappings"]}@zip"
-            )
-        }
-    )
+    mappings("net.fabricmc:yarn:${project.properties["minecraft_version"]}+build.${project.properties["mappings_version"]}")
 
     modImplementation(group = "net.fabricmc", name = "fabric-loader", version = "${project.properties["loader_version"]}")
 
