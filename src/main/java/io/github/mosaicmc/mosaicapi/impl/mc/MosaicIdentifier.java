@@ -18,8 +18,8 @@ public final class MosaicIdentifier implements Identifier {
     public static Identifier of(String id) {
         Result<Identifier, String> result = tryParse(id);
         return switch (result) {
-            case Result.Success(final var success) -> success;
-            case Result.Failure(final var error) -> throw new IllegalArgumentException(error);
+            case Result.Success(Identifier success) -> success;
+            case Result.Failure(String error) -> throw new IllegalArgumentException(error);
         };
     }
 
