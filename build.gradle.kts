@@ -16,10 +16,11 @@ repositories {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:${project.properties["minecraft_version"]}")
-    mappings("net.fabricmc:yarn:${project.properties["minecraft_version"]}+build.${project.properties["mappings_version"]}")
+    minecraft(group = "com.mojang", name = "minecraft", version = "${project.properties["minecraft_version"]}")
+    mappings(group = "net.fabricmc" , name = "yarn", version = "${project.properties["minecraft_version"]}+build.${project.properties["mappings_version"]}")
 
     modImplementation(group = "net.fabricmc", name = "fabric-loader", version = "${project.properties["loader_version"]}")
+    implementation(group = "jakarta.annotation", name = "jakarta.annotation-api", version = "2.1.1")
 
     val mixinExtras = "com.github.llamalad7.mixinextras:mixinextras-fabric:${project.properties["mixin_extras"]}"
 
@@ -93,8 +94,8 @@ java {
 }
 
 spotless {
-    java {
-        palantirJavaFormat("2.38.0")
-        formatAnnotations()
-    }
+//    java {
+//        palantirJavaFormat("2.38.0")
+//        formatAnnotations()
+//    }
 }
