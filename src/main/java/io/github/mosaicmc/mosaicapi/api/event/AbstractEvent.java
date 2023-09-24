@@ -1,7 +1,5 @@
 package io.github.mosaicmc.mosaicapi.api.event;
 
-import io.github.mosaicmc.mosaicapi.api.mc.Identifier;
-
 public abstract non-sealed class AbstractEvent<T extends Event<T>> implements Event<T> {
     @Override
     public void call(EventManager eventManager) {
@@ -10,6 +8,4 @@ public abstract non-sealed class AbstractEvent<T extends Event<T>> implements Ev
             sub.call((T) this);
         }
     }
-
-    public abstract Identifier getIdentifier();
 }
