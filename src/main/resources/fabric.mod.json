@@ -2,7 +2,6 @@
     "schemaVersion": 1,
     "id": "${mod_id}",
     "version": "${version}",
-
     "name": "MosaicAPI",
     "description": "Plugin API for MosaicMC",
     "authors": [
@@ -12,11 +11,10 @@
         "homepage": "https://github.com/MosaicMC/MosaicAPI",
         "sources": "https://github.com/MosaicMC/MosaicAPI"
     },
-
     "license": "LGPL-3.0",
     "environment": "*",
     "entrypoints": {
-        "plugin" : []
+        "plugin": []
     },
     "mixins": [
         "mosaicapi.mixins.json"

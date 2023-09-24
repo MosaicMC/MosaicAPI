@@ -2,64 +2,71 @@ package io.github.mosaicmc.mosaicapi.impl.mc;
 
 import io.github.mosaicmc.mosaicapi.api.mc.Identifier;
 import io.github.mosaicmc.mosaicapi.util.Result;
-import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public final class MosaicIdentifier implements Identifier {
+public class MosaicIdentifier implements Identifier {
     private final String namespace;
     private final List<String> paths;
+    private final String id;
 
-    public MosaicIdentifier(final String namespace, final List<String> paths) {
+    private MosaicIdentifier(String namespace, List<String> paths) {
         this.namespace = namespace;
         this.paths = paths;
+        this.id = namespace + ":" + String.join("/", paths);
     }
 
     public static Identifier of(String id) {
-        Result<Identifier, String> result = tryParse(id);
-        return switch (result) {
-            case Result.Success(Identifier success) -> success;
-            case Result.Failure(String error) -> throw new IllegalArgumentException(error);
-        };
+        String[] parts = id.split(":");
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("Invalid identifier format: " + id);
+        }
+
+        String namespace = parts[0];
+        String[] pathParts = parts[1].split("/");
+        List<String> pathList = new ArrayList<>();
+
+        for (String pathPart : pathParts) {
+            if (isNotValidPathComponent(pathPart)) {
+                throw new IllegalArgumentException("Invalid path component: " + pathPart);
+            }
+            pathList.add(pathPart);
+        }
+
+        return new MosaicIdentifier(namespace, pathList);
     }
 
     public static Identifier of(String namespace, List<String> path) {
+        for (String pathPart : path) {
+            if (isNotValidPathComponent(pathPart)) {
+                throw new IllegalArgumentException("Invalid path component: " + pathPart);
+            }
+        }
         return new MosaicIdentifier(namespace, path);
     }
 
     public static Result<Identifier, String> tryParse(String id) {
-        String[] parts = id.split("@");
-        if (parts.length < 2) {
-            return new Result.Failure<>("Invalid input format: " + id);
+        try {
+            Identifier parsedIdentifier = of(id);
+            return new Result.Success<>(parsedIdentifier);
+        } catch (IllegalArgumentException e) {
+            return new Result.Failure<>(e.getMessage());
         }
-        final var namespace = parts[0];
-        if (!isValid(namespace)) {
-            return new Result.Failure<>("Invalid input format: " + id);
-        }
-        String[] pathArray = parts[1].split("\\.");
-        if (!isValidPaths(pathArray)) {
-            return new Result.Failure<>("Invalid input format: " + id);
-        }
-        List<String> paths = List.of(pathArray);
-
-        return new Result.Success<>(new MosaicIdentifier(namespace, paths));
     }
 
     public static boolean isValid(String id) {
-        return tryParse(id) instanceof Result.Success;
-    }
-
-    private static boolean isValidPaths(String[] paths) {
-        for (String path : paths) {
-            if (!isValidInput(path)) {
-                return false;
-            }
+        try {
+            of(id);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
         }
-        return true;
     }
 
-    private static boolean isValidInput(String input) {
-        return input.matches("^[a-z_]+$");
+    private static boolean isNotValidPathComponent(String pathComponent) {
+        return !pathComponent.matches("^[0-9a-z_-]+$");
     }
 
     @Override
@@ -73,7 +80,28 @@ public final class MosaicIdentifier implements Identifier {
     }
 
     @Override
-    public int compareTo(@NotNull final Identifier o) {
-        return 0;
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "MosaicIdentifier{" +
+                "namespace='" + namespace + '\'' +
+                ", paths=" + paths +
+                ", id='" + id + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof final MosaicIdentifier that)) return false;
+        return Objects.equals(namespace, that.namespace) && Objects.equals(paths, that.paths);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(namespace, paths);
     }
 }

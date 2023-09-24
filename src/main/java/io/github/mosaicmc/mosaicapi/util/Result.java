@@ -2,8 +2,8 @@ package io.github.mosaicmc.mosaicapi.util;
 
 import java.util.Objects;
 
-public sealed interface Result<T,X>  {
-    record Success<T,X>(T ok) implements Result<T,X> {
+public sealed interface Result<T, X> {
+    record Success<T, X>(T ok) implements Result<T, X> {
         @Override
         public boolean equals(final Object o) {
             if (this == o) return true;
@@ -18,11 +18,13 @@ public sealed interface Result<T,X>  {
 
         @Override
         public String toString() {
-            return "Success(" + this.ok + ")";
+            return "Success{" +
+                    "ok=" + ok +
+                    '}';
         }
     }
 
-    record Failure<T,X>(X err) implements Result<T,X> {
+    record Failure<T, X>(X err) implements Result<T, X> {
         @Override
         public boolean equals(final Object o) {
             if (this == o) return true;
@@ -37,7 +39,9 @@ public sealed interface Result<T,X>  {
 
         @Override
         public String toString() {
-            return "Failure(" + this.err + ")";
+            return "Failure{" +
+                    "err=" + err +
+                    '}';
         }
     }
 }

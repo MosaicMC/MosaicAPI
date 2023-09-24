@@ -2,7 +2,7 @@ package io.github.mosaicmc.mosaicapi.util;
 
 import java.util.Objects;
 
-public record Pair<A,B>(A a, B b) {
+public record Pair<A, B>(A a, B b) {
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;

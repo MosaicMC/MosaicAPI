@@ -7,9 +7,13 @@ import java.nio.file.Path;
 
 public interface PluginContainer {
     Iterable<PluginInitializer> getInitializers();
+
     Server getServer();
+
     Path getConfigPath();
+
     String getName();
+
     default File getConfigFile() {
         return getConfigPath().toFile();
     }

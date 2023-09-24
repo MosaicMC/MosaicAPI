@@ -2,7 +2,7 @@ package io.github.mosaicmc.mosaicapi.util;
 
 import java.util.Objects;
 
-public record Triplet<A,B,C>(A a, B b, C c) {
+public record Triplet<A, B, C>(A a, B b, C c) {
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;

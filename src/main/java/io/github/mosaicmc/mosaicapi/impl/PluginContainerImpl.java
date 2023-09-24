@@ -21,6 +21,7 @@ public final class PluginContainerImpl implements PluginContainer {
         this.configPath = FabricLoader.getInstance().getConfigDir().resolve(name);
         this.name = name;
     }
+
     @Override
     public Iterable<PluginInitializer> getInitializers() {
         return initializers;

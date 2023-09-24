@@ -5,7 +5,7 @@ import io.github.mosaicmc.mosaicapi.util.Result;
 
 import java.util.List;
 
-public interface Identifier extends Comparable<Identifier> {
+public interface Identifier {
     static Identifier of(String id) {
         return MosaicIdentifier.of(id);
     }
@@ -23,5 +23,8 @@ public interface Identifier extends Comparable<Identifier> {
     }
 
     String getNamespace();
+
     List<String> getPaths();
+
+    String getId();
 }
