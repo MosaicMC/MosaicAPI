@@ -1,10 +1,13 @@
 package io.github.mosaicmc.mosaicapi.impl;
 
 import io.github.mosaicmc.mosaicapi.api.MosaicLoader;
+import io.github.mosaicmc.mosaicapi.api.PluginContainer;
 import io.github.mosaicmc.mosaicapi.api.PluginManager;
 import io.github.mosaicmc.mosaicapi.api.event.EventManager;
 import io.github.mosaicmc.mosaicapi.api.mc.Server;
 import io.github.mosaicmc.mosaicapi.impl.event.EventManagerImpl;
+import io.github.mosaicmc.mosaicapi.impl.event.EventRegistryImpl;
+import io.github.mosaicmc.mosaicapi.impl.event.SubscriberRegistryImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,14 +20,38 @@ public final class MosaicLoaderImpl implements MosaicLoader {
     public MosaicLoaderImpl(Server server) {
         this.server = server;
         this.logger = LoggerFactory.getLogger("MosaicAPI");
-        this.pluginManager = new PluginManagerImpl();
+        this.pluginManager = new PluginManagerImpl(this);
         this.eventManager = new EventManagerImpl();
         onServerLoad();
     }
 
     private void onServerLoad() {
         logger.info("Loading Plugins...");
-        pluginManager.loadPlugins(server);
+        pluginManager.craftPlugins(server);
+        var pluginIterator = pluginManager.getPlugins();
+        pluginIterator.forEach(this::setContainer);
+        pluginIterator.forEach(this::registerEvents);
+        pluginIterator.forEach(this::registerPlugins);
+    }
+
+    private void setContainer(PluginContainer container) {
+        container.getInitializers().forEach(init -> init.setPluginContainer(container));
+    }
+
+    private void registerPlugins(PluginContainer container) {
+        final var subscriberRegistry = new SubscriberRegistryImpl(container);
+        container.getInitializers().forEach(
+                init -> init.onEnable(subscriberRegistry)
+        );
+        eventManager.registerSubscribers(subscriberRegistry);
+    }
+
+    private void registerEvents(PluginContainer container) {
+        final var eventRegistry = new EventRegistryImpl(container);
+        container.getInitializers().forEach(
+                init -> init.eventRegister(eventRegistry)
+        );
+        eventManager.registerEvents(eventRegistry);
     }
 
     @Override

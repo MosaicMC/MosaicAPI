@@ -37,12 +37,20 @@ public class EventManagerImpl implements EventManager {
 
     @Override
     public <T extends Event<T>> Iterable<Subscriber<T>> getEventSubscribers(final Class<T> eventClass) {
+        if (!isRegistered(eventClass)) {
+            throw new IllegalStateException("Event " + eventClass + " is not registered");
+        }
         //noinspection unchecked
         return (Iterable<Subscriber<T>>) (Object) events.get(eventClass);
     }
 
     @Override
     public void registerSubscribers(final SubscriberRegistry registry) {
-        registry.forEach(subscriber -> events.get(subscriber.getEventClass()).add(subscriber));
+        registry.forEach(subscriber -> {
+            if (!isRegistered(subscriber.getEventClass())) {
+                throw new IllegalStateException("Event " + subscriber.getEventClass() + " is not registered");
+            }
+            events.get(subscriber.getEventClass()).add(subscriber);
+        });
     }
 }
