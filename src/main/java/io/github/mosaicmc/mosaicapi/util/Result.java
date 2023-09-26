@@ -2,7 +2,19 @@ package io.github.mosaicmc.mosaicapi.util;
 
 import java.util.Objects;
 
+/**
+ * Represents a result that can be either a success or a failure.
+ *
+ * @param <T> The type of the success value.
+ * @param <X> The type of the error value.
+ */
 public sealed interface Result<T, X> {
+    /**
+     * Represents a successful result.
+     *
+     * @param <T> The type of the success value.
+     * @param <X> The type of the error value.
+     */
     record Success<T, X>(T ok) implements Result<T, X> {
         @Override
         public boolean equals(final Object o) {
@@ -24,6 +36,12 @@ public sealed interface Result<T, X> {
         }
     }
 
+    /**
+     * Represents a failed result.
+     *
+     * @param <T> The type of the success value.
+     * @param <X> The type of the error value.
+     */
     record Failure<T, X>(X err) implements Result<T, X> {
         @Override
         public boolean equals(final Object o) {

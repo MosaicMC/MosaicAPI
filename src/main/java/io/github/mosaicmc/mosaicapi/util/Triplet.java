@@ -2,6 +2,13 @@ package io.github.mosaicmc.mosaicapi.util;
 
 import java.util.Objects;
 
+/**
+ * A simple record representing a triplet of values.
+ *
+ * @param <A> The type of the first value.
+ * @param <B> The type of the second value.
+ * @param <C> The type of the third value.
+ */
 public record Triplet<A, B, C>(A a, B b, C c) {
     @Override
     public boolean equals(final Object o) {

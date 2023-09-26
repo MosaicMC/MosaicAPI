@@ -2,6 +2,12 @@ package io.github.mosaicmc.mosaicapi.util;
 
 import java.util.Objects;
 
+/**
+ * A simple record representing a pair of values.
+ *
+ * @param <A> The type of the first value.
+ * @param <B> The type of the second value.
+ */
 public record Pair<A, B>(A a, B b) {
     @Override
     public boolean equals(final Object o) {
