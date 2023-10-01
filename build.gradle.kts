@@ -1,11 +1,9 @@
-import juuxel.vineflowerforloom.api.DecompilerBrand
 import java.text.SimpleDateFormat
 import java.util.*
 
 plugins {
-    id("fabric-loom") version "1.3-SNAPSHOT"
+    id("fabric-loom") version "1.4-SNAPSHOT"
     id("maven-publish")
-    id("io.github.juuxel.loom-vineflower") version "1.11.0"
     id("org.jetbrains.dokka") version "1.9.0"
     id("com.diffplug.spotless") version "6.21.0"
 }
@@ -21,6 +19,7 @@ dependencies {
 
     modImplementation(group = "net.fabricmc", name = "fabric-loader", version = "${project.properties["loader_version"]}")
     implementation(group = "jakarta.annotation", name = "jakarta.annotation-api", version = "2.1.1")
+    implementation("org.vineflower:vineflower:1.9.3")
 
     val mixinExtras = "com.github.llamalad7.mixinextras:mixinextras-fabric:${project.properties["mixin_extras"]}"
 
@@ -31,9 +30,6 @@ loom {
     serverOnlyMinecraftJar()
 }
 
-vineflower {
-    brand = DecompilerBrand.VINEFLOWER
-}
 
 val sourceCompatibility = JavaVersion.VERSION_21
 val targetCompatibility = JavaVersion.VERSION_21

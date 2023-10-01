@@ -11,6 +11,9 @@ import io.github.mosaicmc.mosaicapi.impl.event.SubscriberRegistryImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.util.Random;
+
 public final class MosaicLoaderImpl implements MosaicLoader {
     private final Server server;
     private final Logger logger;
@@ -22,8 +25,32 @@ public final class MosaicLoaderImpl implements MosaicLoader {
         this.logger = LoggerFactory.getLogger("MosaicAPI");
         this.pluginManager = new PluginManagerImpl(this);
         this.eventManager = new EventManagerImpl();
+        try {
+            print();
+        } catch (InterruptedException | IOException e) {
+            throw new RuntimeException(e);
+        }
         onServerLoad();
     }
+    void print() throws InterruptedException, IOException {
+        final Random rnd = new Random();
+        final int progressBarSize = 50;
+        final int totalPercentage = 100;
+        final int progressIncrement = totalPercentage / progressBarSize;
+
+        StringBuilder progressBar = new StringBuilder(" ".repeat(progressBarSize));
+
+        for (int i = 0; i <= totalPercentage; i++) {
+            if (i >= progressIncrement && i % progressIncrement == 0) {
+                progressBar.setCharAt(i / progressIncrement - 1, '#');
+            }
+            Thread.sleep(rnd.nextInt(50,400));
+            System.out.print("<|" + progressBar + "|> %" + i + "\r");
+        }
+        System.out.println();
+        System.out.println("Done!");
+    }
+
 
     private void onServerLoad() {
         logger.info("Loading Plugins...");

@@ -1,11 +1,15 @@
 package io.github.mosaicmc.mosaicapi.api.event;
 
-public sealed interface Event<T extends Event<T>> permits AbstractEvent {
-
+public abstract class Event<T extends Event<T>> {
     /**
      * Calls the event on all its registered subscribers.
      *
-     * @param eventManager The event manager responsible for managing event subscribers.
+     * @param subs Event subscribers.
      */
-    void call(EventManager eventManager);
+    @SuppressWarnings("unchecked")
+    public void call(Iterable<Subscriber<T>> subs) {
+        for (final var sub : subs) {
+            sub.call((T) this);
+        }
+    }
 }

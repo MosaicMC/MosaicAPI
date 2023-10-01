@@ -15,7 +15,6 @@
     "environment": "*",
     "entrypoints": {
         "plugin": [
-            "io.github.mosaicmc.mosaicapi.Test"
         ]
     },
     "mixins": [

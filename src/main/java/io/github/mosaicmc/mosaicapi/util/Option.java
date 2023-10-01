@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Represents an option that may or may not contain a value.
  */
-public sealed interface Option {
+public sealed interface Option<T> {
 
     /**
      * Creates an empty option.
@@ -22,7 +22,7 @@ public sealed interface Option {
      *
      * @param <T> The type of the value.
      */
-    record Some<T>(T value) implements Option {
+    record Some<T>(T value) implements Option<T> {
         @Override
         public boolean equals(final Object o) {
             if (this == o) return true;
@@ -48,7 +48,7 @@ public sealed interface Option {
      *
      * @param <T> The type parameter of the option.
      */
-    final class None<T> implements Option {
+    final class None<T> implements Option<T> {
         private None() {
         }
 

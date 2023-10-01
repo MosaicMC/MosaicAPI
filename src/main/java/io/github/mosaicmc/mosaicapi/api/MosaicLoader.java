@@ -2,8 +2,16 @@ package io.github.mosaicmc.mosaicapi.api;
 
 import io.github.mosaicmc.mosaicapi.api.event.EventManager;
 import io.github.mosaicmc.mosaicapi.api.mc.Server;
+import io.github.mosaicmc.mosaicapi.util.Option;
 
 public interface MosaicLoader {
+    MosaicLoader INSTANCE = null;
+    public static MosaicLoader getInstance(final Server server) {
+        final Option<String> test = Option.None();
+        return null;
+    }
+
+
 
     /**
      * Retrieves the server instance.
