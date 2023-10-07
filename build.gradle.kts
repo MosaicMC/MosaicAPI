@@ -17,33 +17,33 @@ dependencies {
     minecraft(
             group = "com.mojang",
             name = "minecraft",
-            version = project.properties.grab("minecraft_version")
+            version = fromConfig("minecraft_version")
     )
     mappings(
             group = "net.fabricmc",
             name = "yarn",
-            version = "${project.properties["minecraft_version"]}+build.${project.properties["mappings_version"]}"
+            version = "${fromConfig("minecraft_version")}+build.${fromConfig("mappings_version")}"
     )
 
     modImplementation(
             group = "net.fabricmc",
             name = "fabric-loader",
-            version = project.properties.grab("loader_version")
+            version = fromConfig("loader_version")
     )
     implementation(
             group = "jakarta.annotation",
             name = "jakarta.annotation-api",
-            version = project.properties.grab("jakarta")
+            version = fromConfig("jakarta_version")
     )
     implementation(
             group = "org.vineflower",
             name = "vineflower",
-            version = project.properties.grab("vineflower")
+            version = fromConfig("vineflower_version")
     )
     include(implementation(annotationProcessor(
         group = "com.github.llamalad7.mixinextras",
         name = "mixinextras-fabric",
-        version = project.properties.grab("mixin_extras"),
+        version = fromConfig("mixin_extras_version"),
     ))!!)
 }
 
@@ -53,20 +53,20 @@ loom {
 
 val sourceCompatibility = JavaVersion.VERSION_21
 val targetCompatibility = JavaVersion.VERSION_21
-val archivesBaseName = project.properties.grab("archivesBaseName")
+val archivesBaseName = fromConfig("archivesBaseName")
 val dokkaHtmlJar = "dokkaHtmlJar"
 val dokkaJavadocJar = "dokkaJavadocJar"
 val dataFormat = SimpleDateFormat("yyyy.MM.dd.HH").format(Date())!!
 
-version = "${dataFormat}+${project.properties["mod_version"]}"
+version = "${dataFormat}+${fromConfig("mod_version")}"
 
 
 tasks.processResources {
     expand(mapOf(
         "version" to project.version,
-        "mod_id" to project.properties["mod_id"],
-        "loader_version" to project.properties["loader_version"],
-        "minecraft_version" to project.properties["minecraft_version"],
+        "mod_id" to fromConfig("mod_id"),
+        "loader_version" to fromConfig("loader_version"),
+        "minecraft_version" to fromConfig("minecraft_version"),
         "java_version" to sourceCompatibility.toString(),
     ))
 }
@@ -114,5 +114,7 @@ spotless {
 //    }
 }
 
-fun Map<String,*>.grab(key: String): String? = this[key] as? String
+fun fromConfig(key: String): String {
+    return project.properties[key] as String
+}
 
