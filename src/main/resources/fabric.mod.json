@@ -18,7 +18,6 @@
         ]
     },
     "mixins": [
-        "mosaicapi.mixins.json"
     ],
     "depends": {
         "fabricloader": ">=${loader_version}",
