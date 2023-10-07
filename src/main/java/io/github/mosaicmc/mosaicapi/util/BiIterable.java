@@ -3,6 +3,7 @@ package io.github.mosaicmc.mosaicapi.util;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
@@ -33,6 +34,23 @@ public interface BiIterable<T, U> extends Iterable<Pair<T, U>> {
             @Override
             public void forEach(BiConsumer<T, U> consumer) {
                 map.forEach(consumer);
+            }
+        };
+    }
+
+    static <T, U> BiIterable<T, U> of(List<Pair<T,U>> list) {
+        return new BiIterable<>() {
+            @NotNull
+            @Override
+            public Iterator<Pair<T, U>> iterator() {
+                return list.iterator();
+            }
+
+            @Override
+            public void forEach(BiConsumer<T, U> consumer) {
+                list.forEach(pair -> {
+                    consumer.accept(pair.a(), pair.b());
+                });
             }
         };
     }

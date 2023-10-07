@@ -12,8 +12,11 @@ public record Pair<A, B>(A a, B b) {
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
-        if (!(o instanceof final Pair<?, ?> pair)) return false;
-        return Objects.equals(a, pair.a) && Objects.equals(b, pair.b);
+        if (!(o instanceof Pair(Object pairA, Object pairB))) return false;
+        synchronized (Pair.class) {
+
+        }
+        return Objects.equals(a, pairA) && Objects.equals(b, pairB);
     }
 
     @Override

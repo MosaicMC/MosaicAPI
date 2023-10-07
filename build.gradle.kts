@@ -14,32 +14,51 @@ repositories {
 }
 
 dependencies {
-    minecraft(group = "com.mojang", name = "minecraft", version = "${project.properties["minecraft_version"]}")
-    mappings(group = "net.fabricmc" , name = "yarn", version = "${project.properties["minecraft_version"]}+build.${project.properties["mappings_version"]}")
+    minecraft(
+            group = "com.mojang",
+            name = "minecraft",
+            version = project.properties.grab("minecraft_version")
+    )
+    mappings(
+            group = "net.fabricmc",
+            name = "yarn",
+            version = "${project.properties["minecraft_version"]}+build.${project.properties["mappings_version"]}"
+    )
 
-    modImplementation(group = "net.fabricmc", name = "fabric-loader", version = "${project.properties["loader_version"]}")
-    implementation(group = "jakarta.annotation", name = "jakarta.annotation-api", version = "2.1.1")
-    implementation("org.vineflower:vineflower:1.9.3")
-
-    val mixinExtras = "com.github.llamalad7.mixinextras:mixinextras-fabric:${project.properties["mixin_extras"]}"
-
-    include(implementation(annotationProcessor(mixinExtras)!!)!!)
+    modImplementation(
+            group = "net.fabricmc",
+            name = "fabric-loader",
+            version = project.properties.grab("loader_version")
+    )
+    implementation(
+            group = "jakarta.annotation",
+            name = "jakarta.annotation-api",
+            version = project.properties.grab("jakarta")
+    )
+    implementation(
+            group = "org.vineflower",
+            name = "vineflower",
+            version = project.properties.grab("vineflower")
+    )
+    include(implementation(annotationProcessor(
+        group = "com.github.llamalad7.mixinextras",
+        name = "mixinextras-fabric",
+        version = project.properties.grab("mixin_extras"),
+    ))!!)
 }
 
 loom {
     serverOnlyMinecraftJar()
 }
 
-
 val sourceCompatibility = JavaVersion.VERSION_21
 val targetCompatibility = JavaVersion.VERSION_21
-val archivesBaseName = project.properties["archivesBaseName"]
+val archivesBaseName = project.properties.grab("archivesBaseName")
 val dokkaHtmlJar = "dokkaHtmlJar"
 val dokkaJavadocJar = "dokkaJavadocJar"
 val dataFormat = SimpleDateFormat("yyyy.MM.dd.HH").format(Date())!!
 
 version = "${dataFormat}+${project.properties["mod_version"]}"
-group = project.properties["maven_group"].toString()
 
 
 tasks.processResources {
@@ -47,9 +66,8 @@ tasks.processResources {
         "version" to project.version,
         "mod_id" to project.properties["mod_id"],
         "loader_version" to project.properties["loader_version"],
-        "fabric_kotlin_version" to project.properties["fabric_kotlin_version"],
-        "kotlin_version" to project.properties["kotlin_version"],
         "minecraft_version" to project.properties["minecraft_version"],
+        "java_version" to sourceCompatibility.toString(),
     ))
 }
 
@@ -95,3 +113,6 @@ spotless {
 //        formatAnnotations()
 //    }
 }
+
+fun Map<String,*>.grab(key: String): String? = this[key] as? String
+
