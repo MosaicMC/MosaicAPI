@@ -13,7 +13,8 @@ jobs:
       - name: setup java & gradle
         uses: sdkman/sdkman-action@main
         id: sdkman
-        run: export JAVA_HOME=${SDKMAN_CANDIDATES_DIR}/java/${CURRENT}
+      - name: set java version
+        run: sdk use java "$(sdk current java | tail -1 | awk -F'. ' ' { print $NF } ')" > /dev/null 2>&1
       - name: build
         run: gradle build
       - name: capture build artifacts
