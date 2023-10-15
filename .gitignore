@@ -1,6 +1,7 @@
 # Ignore Gradle project-specific cache directory
 .gradle
-run/
-
-# Ignore Gradle build output directory
+run
 build
+gradle
+gradlew
+gradlew.bat

@@ -14,6 +14,18 @@
         </processorPath>
         <module name="mosaicapi.main" />
       </profile>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <option name="defaultObfuscationEnv" value="named:intermediary" />
+        <option name="inMapFileNamedIntermediary" value="$USER_HOME$/.gradle/caches/fabric-loom/23w40a/net.fabricmc.yarn.23w40a.23w40a+build.3/mappings.tiny" />
+        <option name="outMapFileNamedIntermediary" value="$PROJECT_DIR$/build/loom-cache/mixin-map-net.fabricmc.yarn.23w40a.23w40a+build.3.main.tiny" />
+        <option name="outRefMapFile" value="$PROJECT_DIR$/build/classes/java/main/MosaicAPI-refmap.json" />
+        <option name="quiet" value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.llamalad7.mixinextras/mixinextras-fabric/0.2.0-rc.5/b269a48fa863edb12c990ddaa61427887aca1c82/mixinextras-fabric-0.2.0-rc.5.jar" />
+        </processorPath>
+        <module name="MosaicAPI.main" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="21" />
   </component>
