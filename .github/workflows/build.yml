@@ -16,7 +16,7 @@ jobs:
       - name: configure sdkman
         run: source "/home/runner/.sdkman/bin/sdkman-init.sh"
       - name: configure java
-        run: sdk use java "$(sdk current java | tail -1 | awk -F'. ' ' { print $NF } ')" > /dev/null 2>&1
+        run: export JAVA_HOME=${SDKMAN_DIR}/candidates/java/current
       - name: build
         run: gradle build
       - name: capture build artifacts
