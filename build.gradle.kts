@@ -28,11 +28,6 @@ dependencies {
             name    = "fabric-loader",
             version = fromConfig("loader_version")
     )
-    implementation(include(
-            group   = "jakarta.annotation",
-            name    = "jakarta.annotation-api",
-            version = fromConfig("jakarta_version")
-    ))
     implementation(
             group   = "org.vineflower",
             name    = "vineflower",
