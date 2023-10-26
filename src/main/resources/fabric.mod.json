@@ -15,9 +15,12 @@
     "environment": "*",
     "entrypoints": {
         "plugin": [
+            "io.github.mosaicmc.mosaicapi.Test",
+            "io.github.mosaicmc.mosaicapi.Test"
         ]
     },
     "mixins": [
+        "mosaicapi.mixins.json"
     ],
     "depends": {
         "fabricloader": ">=${loader_version}",

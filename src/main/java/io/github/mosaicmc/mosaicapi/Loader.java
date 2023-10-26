@@ -1,23 +1,36 @@
 package io.github.mosaicmc.mosaicapi;
 
-import io.github.mosaicmc.mosaicapi.utils.Option;
 import net.minecraft.server.MinecraftServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 public final class Loader {
-    private static final Loader INSTANCE = new Loader();
-    private Option<MinecraftServer> server = Option.None.get();
+    private static final Init<Loader> INSTANCE = new Init<>();
+    public final Logger logger = LoggerFactory.getLogger("MosaicAPI");
+    private final MinecraftServer server;
 
-    private Loader() {
+    private Loader(MinecraftServer server) {
+        this.server = server;
     }
 
     public static Loader getInstance() {
-        return INSTANCE;
+        return INSTANCE.get();
     }
 
-    public void load(MinecraftServer server) {
-        switch (this.server) {
-            case Option.None<MinecraftServer> $ -> this.server = new Option.Ok<>(server);
-            case Option.Ok(MinecraftServer $) -> throw new IllegalStateException("Already loaded!");
-        }
+    public static Loader loadLoader(MinecraftServer server) {
+        INSTANCE.setter(() -> new Loader(server));
+        final var $ = INSTANCE.get();
+        $.load();
+        return $;
     }
+
+    public MinecraftServer getServer() {
+        return server;
+    }
+
+    private void load() {
+        new PluginManager(server);
+    }
+
 }

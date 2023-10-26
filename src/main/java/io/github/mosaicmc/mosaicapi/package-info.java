@@ -1,4 +1,6 @@
-@NonNull
+@FieldsAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 package io.github.mosaicmc.mosaicapi;
 
-import io.github.mosaicmc.mosaicapi.utils.NonNull;
+import net.minecraft.util.annotation.FieldsAreNonnullByDefault;
+import net.minecraft.util.annotation.MethodsReturnNonnullByDefault;
