@@ -1,7 +1,11 @@
 package io.github.mosaicmc.mosaicapi;
 
 public abstract class PluginEntrypoint {
-    protected final Init<PluginContainer> container = new Init<>();
+    public final Init<PluginContainer> plugin = new Init<>();
 
     abstract void load();
+
+    protected final PluginContainer getPlugin() {
+        return plugin.get();
+    }
 }

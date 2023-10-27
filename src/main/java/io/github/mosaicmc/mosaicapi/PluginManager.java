@@ -6,56 +6,59 @@ import com.google.common.collect.ImmutableList;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
 import net.minecraft.server.MinecraftServer;
-import org.jetbrains.annotations.NotNull;
+import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public final class PluginManager {
     private final MinecraftServer server;
     private final FabricLoader fabricLoader;
-    private final BiMap<String, PluginContainer> plugins;
+    private final Init<BiMap<String, PluginContainer>> plugins = new Init<>();
 
-    PluginManager(MinecraftServer server) {
-        this.server = server;
+    PluginManager() {
         this.fabricLoader = FabricLoader.getInstance();
-        this.plugins = loadPlugins();
+        this.server = Loader.getInstance().getServer();
     }
 
-    private String getId(@NotNull EntrypointContainer<PluginEntrypoint> entry) {
+    private String getId(EntrypointContainer<PluginEntrypoint> entry) {
         return entry.getProvider().getMetadata().getId();
     }
 
-    private ImmutableBiMap<String, PluginContainer> collectImmutableMap(@NotNull Map<String, List<PluginEntrypoint>> map) {
-        return map.entrySet()
-                .stream()
-                .collect(ImmutableBiMap.toImmutableBiMap(
-                        Map.Entry::getKey,
-                        entry -> new PluginContainer(entry.getKey(), ImmutableList.copyOf(entry.getValue()))
-                ));
+    private BiMap<String, PluginContainer> collectImmutableMap(Map<String, ImmutableList.Builder<PluginEntrypoint>> map) {
+        final var builder = ImmutableBiMap.<String, PluginContainer>builder();
+        for (final var entry : map.entrySet()) {
+            builder.put(entry.getKey(), new PluginContainer(
+                    entry.getKey(),
+                    entry.getValue().build(),
+                    LoggerFactory.getLogger(entry.getKey())
+            ));
+        }
+        return builder.buildOrThrow();
     }
 
-    private Collector<EntrypointContainer<PluginEntrypoint>, ?, Map<String, List<PluginEntrypoint>>> toMapCollector() {
-        return Collectors.groupingBy(this::getId,
-                Collectors.mapping(
-                        EntrypointContainer::getEntrypoint,
-                        Collectors.toList()
-                )
-        );
+    private Map<String, ImmutableList.Builder<PluginEntrypoint>> toMap(List<EntrypointContainer<PluginEntrypoint>> list) {
+        final var map = new HashMap<String, ImmutableList.Builder<PluginEntrypoint>>();
+
+        for (final var container : list) {
+            final var id = getId(container);
+            map.computeIfAbsent(
+                    id,
+                    unused -> ImmutableList.builder()
+            ).add(container.getEntrypoint());
+        }
+
+        return map;
     }
 
 
-    private BiMap<String, PluginContainer> loadPlugins() {
+    public void preloadPlugins() {
         final var entries = fabricLoader.getEntrypointContainers("plugin", PluginEntrypoint.class);
-        final var plugins =  entries.stream().collect(Collectors.collectingAndThen(
-                this.toMapCollector(),
-                this::collectImmutableMap
-        ));
-        Loader.getInstance().logger.info("Loaded " + plugins.size() + " plugins");
-        return plugins;
+        this.plugins.init(() -> collectImmutableMap(toMap(entries)));
     }
 
-
+    public BiMap<String, PluginContainer> getPlugins() {
+        return plugins.get();
+    }
 }

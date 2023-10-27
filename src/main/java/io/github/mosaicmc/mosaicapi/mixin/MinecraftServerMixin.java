@@ -9,5 +9,5 @@ import org.spongepowered.asm.mixin.Unique;
 public abstract class MinecraftServerMixin {
     @SuppressWarnings("unused")
     @Unique
-    private final Loader loader = Loader.loadLoader((MinecraftServer) (Object) this);
+    private final Loader loader = Loader.loadLoader(MinecraftServer.class.cast(this));
 }
