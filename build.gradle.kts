@@ -9,7 +9,6 @@ plugins {
 
 repositories {
     maven("https://jitpack.io")
-    maven("https://maven.parchmentmc.org")
 }
 
 dependencies {

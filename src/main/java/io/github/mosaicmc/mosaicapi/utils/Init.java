@@ -1,4 +1,4 @@
-package io.github.mosaicmc.mosaicapi;
+package io.github.mosaicmc.mosaicapi.utils;
 
 import org.jetbrains.annotations.Nullable;
 import oshi.annotation.concurrent.ThreadSafe;

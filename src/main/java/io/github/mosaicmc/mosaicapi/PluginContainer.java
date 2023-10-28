@@ -1,8 +1,18 @@
 package io.github.mosaicmc.mosaicapi;
 
+import com.google.common.base.Objects;
 import org.slf4j.Logger;
 
-import java.util.List;
+public record PluginContainer(String name, PluginEntrypoint entrypoint, Logger logger) {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PluginContainer(String nameVar, PluginEntrypoint $, Logger $$))) return false;
+        return Objects.equal(this.name, nameVar);
+    }
 
-public record PluginContainer(String name, List<PluginEntrypoint> entrypoints, Logger logger) {
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name);
+    }
 }
