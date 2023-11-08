@@ -12,11 +12,10 @@
         "sources": "https://github.com/MosaicMC/MosaicAPI"
     },
     "license": "LGPL-3.0",
-    "environment": "*",
+    "environment": "server",
     "entrypoints": {
         "plugin": [
-            "io.github.mosaicmc.mosaicapi.Test",
-            "io.github.mosaicmc.mosaicapi.Test"
+          "io.github.mosaicmc.mosaicapi.test.Test"
         ]
     },
     "mixins": [

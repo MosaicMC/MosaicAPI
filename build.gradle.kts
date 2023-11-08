@@ -5,6 +5,7 @@ plugins {
     id("fabric-loom") version "1.4-SNAPSHOT"
     id("maven-publish")
     id("com.diffplug.spotless") version "6.21.0"
+    id("org.jetbrains.intellij") version "1.16.1-SNAPSHOT"
 }
 
 repositories {
@@ -15,27 +16,27 @@ dependencies {
     minecraft(
             group   = "com.mojang",
             name    = "minecraft",
-            version = fromConfig("minecraft_version")
+            version = "minecraft_version".configKey
     )
     mappings(
             group   = "net.fabricmc",
             name    = "yarn",
-            version = "${fromConfig("minecraft_version")}+build.${fromConfig("mappings_version")}"
+            version = "${"minecraft_version".configKey}+build.${"mappings_version".configKey}"
     )
     modImplementation(
             group   = "net.fabricmc",
             name    = "fabric-loader",
-            version = fromConfig("loader_version")
+            version = "loader_version".configKey
     )
     implementation(
             group   = "org.vineflower",
             name    = "vineflower",
-            version = fromConfig("vineflower_version")
+            version = "vineflower_version".configKey
     )
     implementation(include(annotationProcessor(
             group   = "com.github.llamalad7.mixinextras",
             name    = "mixinextras-fabric",
-            version = fromConfig("mixin_extras_version"),
+            version = "mixin_extras_version".configKey,
     ))!!)
 }
 
@@ -50,17 +51,17 @@ java {
 
 val sourceCompatibility = JavaVersion.VERSION_21
 val targetCompatibility = JavaVersion.VERSION_21
-val archivesBaseName = fromConfig("archivesBaseName")
+val archivesBaseName = "archivesBaseName".configKey
 val dataFormat = SimpleDateFormat("yyyy.MM.dd.HH").format(Date())!!
 
-version = "$dataFormat+${fromConfig("mod_version")}"
+version = "$dataFormat+${"mod_version".configKey}+${"minecraft_version".configKey}"
 
 tasks.processResources {
     expand(mapOf(
         "version" to project.version,
-        "mod_id" to fromConfig("mod_id"),
-        "loader_version" to fromConfig("loader_version"),
-        "minecraft_version" to fromConfig("minecraft_version"),
+        "mod_id" to "mod_id".configKey,
+        "loader_version" to "loader_version".configKey,
+        "minecraft_version" to "minecraft_version".configKey,
         "java_version" to "$sourceCompatibility",
     ))
 }
@@ -68,7 +69,7 @@ tasks.processResources {
 
 tasks.jar {
     from("LICENSE") {
-        rename { "${it}_${fromConfig("archivesBaseName")}"}
+        rename { "${it}_$archivesBaseName"}
     }
 }
 
@@ -76,7 +77,11 @@ tasks.compileJava {
     options.release = 21
 }
 
-fun fromConfig(key: String): String {
-    return project.properties[key] as String
+intellij {
+    version = "2023.2.4"
+    type = "IU"
 }
+
+val String.configKey: String
+    get() = project.properties[this] as String
 

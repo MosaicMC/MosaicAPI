@@ -17,8 +17,8 @@
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <option name="defaultObfuscationEnv" value="named:intermediary" />
-        <option name="inMapFileNamedIntermediary" value="$USER_HOME$/.gradle/caches/fabric-loom/23w43a/net.fabricmc.yarn.23w43a.23w43a+build.2/mappings.tiny" />
-        <option name="outMapFileNamedIntermediary" value="$PROJECT_DIR$/build/loom-cache/mixin-map-net.fabricmc.yarn.23w43a.23w43a+build.2.main.tiny" />
+        <option name="inMapFileNamedIntermediary" value="$USER_HOME$/.gradle/caches/fabric-loom/23w44a/net.fabricmc.yarn.23w44a.23w44a+build.5/mappings.tiny" />
+        <option name="outMapFileNamedIntermediary" value="$PROJECT_DIR$/build/loom-cache/mixin-map-net.fabricmc.yarn.23w44a.23w44a+build.5.main.tiny" />
         <option name="outRefMapFile" value="$PROJECT_DIR$/build/classes/java/main/MosaicAPI-refmap.json" />
         <option name="quiet" value="true" />
         <processorPath useClasspath="false">
