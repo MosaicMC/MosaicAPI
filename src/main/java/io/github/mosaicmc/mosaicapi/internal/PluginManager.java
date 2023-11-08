@@ -2,6 +2,7 @@ package io.github.mosaicmc.mosaicapi.internal;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
+import io.github.mosaicmc.mosaicapi.api.IPluginManager;
 import io.github.mosaicmc.mosaicapi.api.PluginEntrypoint;
 import io.github.mosaicmc.mosaicapi.utils.InitHelper;
 import net.fabricmc.loader.api.FabricLoader;
@@ -15,7 +16,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @ApiStatus.Internal
-public final class PluginManager {
+public final class PluginManager implements IPluginManager {
     private final FabricLoader fabricLoader;
     private final InitHelper<BiMap<String, PluginContainer>> pluginMapInitHelper;
     private final InitHelper<EventManager> eventManagerInitHelper;
@@ -64,12 +65,12 @@ public final class PluginManager {
     }
 
     private void loadPlugins() {
-        ConcurrentHashMap<SubscriberRegistry, EventRegistry> registryMap = new ConcurrentHashMap<>();
+        final var registryMap = new ConcurrentHashMap<SubscriberRegistry, EventRegistry>();
 
         pluginMapInitHelper.get().values().parallelStream()
                 .forEach(plugin -> loadPlugin(plugin, registryMap));
 
-        eventManagerInitHelper.initialize(() -> EventManager.init(registryMap));
+        eventManagerInitHelper.initialize(() -> EventManager.initialize(registryMap));
     }
 
     private void loadPlugin(PluginContainer plugin, Map<SubscriberRegistry, EventRegistry> registryMap) {

@@ -26,6 +26,10 @@ public final class InitHelper<T> {
         this.atomicValue.set(initValue);
     }
 
+    public boolean isInitialized() {
+        return this.atomicValue.get() != null;
+    }
+
     public T get() {
         return requireNonNull(atomicValue.get());
     }

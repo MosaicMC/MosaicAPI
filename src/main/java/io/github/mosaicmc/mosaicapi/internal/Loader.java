@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 public final class Loader implements ILoader {
     public static final Logger logger;
     private static final InitHelper<Loader> INSTANCE;
+    private static boolean isLoaded;
 
     static {
         logger = LoggerFactory.getLogger("MosaicAPI");
@@ -45,6 +46,15 @@ public final class Loader implements ILoader {
         pluginManager.initialize(PluginManager::initialize);
         eventManager.initialize(pluginManager.get()::getEventManager);
         logger.info("Loaded plugins: {}", pluginManager.get().getPlugins().keySet());
+        isLoaded = true;
         return this;
+    }
+
+    public EventManager getEventManager() {
+        return eventManager.get();
+    }
+
+    public PluginManager getPluginManager() {
+        return pluginManager.get();
     }
 }

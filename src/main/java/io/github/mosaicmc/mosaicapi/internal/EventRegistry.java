@@ -1,12 +1,12 @@
 package io.github.mosaicmc.mosaicapi.internal;
 
-import com.google.common.collect.ImmutableList;
 import io.github.mosaicmc.mosaicapi.api.Event;
 import io.github.mosaicmc.mosaicapi.utils.Type;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.IdentityHashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.BiConsumer;
 
 @ApiStatus.Internal
@@ -34,11 +34,11 @@ public final class EventRegistry {
         ));
     }
 
-    public <T extends Event<T>> void register(Type<T> event, BiConsumer<T, ImmutableList<SubscriberContainer<T>>> consumer) {
+    public <T extends Event<T>> void register(Type<T> event, BiConsumer<T, Set<SubscriberContainer<T>>> consumer) {
         events.put(event, new EventContainer<>(event, consumer, plugin));
     }
 
-    public Map<Type<?>, EventContainer<?>> build() {
+    public Map<Type<?>, EventContainer<?>> getAll() {
         return Map.copyOf(events);
     }
 }
