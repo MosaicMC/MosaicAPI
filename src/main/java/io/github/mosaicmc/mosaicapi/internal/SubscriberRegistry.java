@@ -11,6 +11,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
+/**
+ * Internal class, used for subscriber registration.
+ */
 @EqualsAndHashCode(callSuper = false)
 public final class SubscriberRegistry implements ISubscriberRegistry {
     @Getter

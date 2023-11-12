@@ -14,6 +14,9 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Internal class, used for event management.
+ */
 public final class EventManager implements IEventManager {
     private final BiMap<Type<?>, ContainerWrapper> handlerMap;
 
@@ -68,6 +71,7 @@ public final class EventManager implements IEventManager {
 
         Loader.logger.debug("Called event: {}", event.getType().getName());
     }
+
     @Data
     static class ContainerWrapper {
         final EventContainer<?> eventContainer;

@@ -16,6 +16,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Internal class, used for plugin management.
+ */
 public final class PluginManager implements IPluginManager {
     private final FabricLoader fabricLoader;
     @Getter

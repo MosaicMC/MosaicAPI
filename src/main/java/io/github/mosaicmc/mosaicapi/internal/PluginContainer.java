@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.slf4j.Logger;
 
+/**
+ * Internal class, used for plugin registration.
+ */
 @Data
 class PluginContainer implements IPluginContainer {
     private final String id;

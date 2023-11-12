@@ -7,6 +7,9 @@ import net.minecraft.server.MinecraftServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Internal class, used for plugin loading.
+ */
 @Getter
 public final class Loader implements ILoader {
     public static final Logger logger;

@@ -9,6 +9,10 @@ import lombok.EqualsAndHashCode;
 import java.util.Collection;
 import java.util.function.BiConsumer;
 
+/**
+ * Internal class, used for event registration.
+ * @param <T>
+ */
 @Data
 class EventContainer<T extends Event<T>> {
     private final Type<T> type;

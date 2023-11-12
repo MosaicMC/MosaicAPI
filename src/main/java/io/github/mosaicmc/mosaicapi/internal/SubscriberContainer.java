@@ -8,6 +8,9 @@ import lombok.EqualsAndHashCode;
 
 import java.util.function.Consumer;
 
+/**
+ * Internal class, used for subscriber registration.
+ */
 @Data
 class SubscriberContainer<T extends Event<T>> implements ISubscriberContainer<T> {
     private final Type<T> event;

@@ -7,6 +7,9 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Helper class for initializing values
+ */
 @ThreadSafe
 public final class InitHelper<T> {
     private final AtomicReference<@Nullable T> atomicValue = new AtomicReference<>();

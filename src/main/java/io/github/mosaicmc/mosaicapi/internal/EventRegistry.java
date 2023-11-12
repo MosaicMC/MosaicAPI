@@ -12,6 +12,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
 
+/**
+ * Internal class, used for event registration.
+ */
 public final class EventRegistry implements IEventRegistry {
     @Getter
     private final Map<Type<?>, EventContainer<?>> events;
