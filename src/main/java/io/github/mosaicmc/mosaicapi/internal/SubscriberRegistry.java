@@ -26,7 +26,7 @@ public final class SubscriberRegistry implements ISubscriberRegistry {
     @Override
     public <T extends Event<T>> void subscribe(Type<T> event, Consumer<T> consumer) {
         if (subscribers.containsKey(event)) {
-            throw new IllegalStateException("Duplicate subscribers for " + event.name() + ". Plugin: " + plugin.id());
+            throw new IllegalStateException("Duplicate subscribers for " + event.getName() + ". Plugin: " + plugin.getId());
         }
         subscribers.put(event, new SubscriberContainer<>(event, consumer, plugin));
     }

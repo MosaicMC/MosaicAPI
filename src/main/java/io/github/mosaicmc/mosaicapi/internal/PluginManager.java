@@ -18,7 +18,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public final class PluginManager implements IPluginManager {
     private final FabricLoader fabricLoader;
-    private final BiMap<String, PluginContainer> plugins;
+    @Getter
+    private final BiMap<String, IPluginContainer> plugins;
     @Getter
     private final EventManager eventManager;
 
@@ -28,7 +29,7 @@ public final class PluginManager implements IPluginManager {
         this.eventManager = loadPlugins();
     }
 
-    private BiMap<String, PluginContainer> generatePlugins() {
+    private BiMap<String, IPluginContainer> generatePlugins() {
         val entrypointContainers = fabricLoader.getEntrypointContainers("plugin", PluginEntrypoint.class);
         val pluginMap = new HashMap<String, PluginContainer>();
         entrypointContainers.forEach(entry -> addPlugin(pluginMap, entry));
@@ -60,13 +61,13 @@ public final class PluginManager implements IPluginManager {
         val registryMap = new ConcurrentHashMap<SubscriberRegistry, EventRegistry>();
 
         plugins.values().parallelStream()
-                .forEach(plugin -> loadPlugin(plugin, registryMap));
+                .forEach(plugin -> loadPlugin((PluginContainer) plugin, registryMap));
 
         return new EventManager(registryMap);
     }
 
     private void loadPlugin(PluginContainer plugin, Map<SubscriberRegistry, EventRegistry> registryMap) {
-        val entrypoint = plugin.entrypoint();
+        val entrypoint = plugin.getEntrypoint();
 
         entrypoint.plugin.initialize(plugin);
 
@@ -86,10 +87,5 @@ public final class PluginManager implements IPluginManager {
         val eventRegistry = new EventRegistry(plugin);
         entrypoint.registerEvent(eventRegistry);
         return eventRegistry;
-    }
-
-    @Override
-    public BiMap<String, ? extends IPluginContainer> getPlugins() {
-        return plugins;
     }
 }

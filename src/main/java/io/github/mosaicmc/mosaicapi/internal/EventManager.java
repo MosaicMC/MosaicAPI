@@ -6,6 +6,8 @@ import io.github.mosaicmc.mosaicapi.api.Event;
 import io.github.mosaicmc.mosaicapi.api.IEventManager;
 import io.github.mosaicmc.mosaicapi.api.ISubscriberContainer;
 import io.github.mosaicmc.mosaicapi.utils.Type;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.val;
 
 import java.util.Collection;
@@ -57,33 +59,18 @@ public final class EventManager implements IEventManager {
     public <T extends Event<T>> void callEvent(T event) {
         val container = handlerMap.get(event.getType());
 
-        if (container == null) throw new IllegalStateException("Not registered event: " + event.getType().name());
+        if (container == null) throw new IllegalStateException("Not registered event: " + event.getType().getName());
         if (container.subscribers.isEmpty()) return;
 
         val subs = (Collection<ISubscriberContainer<T>>) (Object) container.subscribers;
         val eventContainer = (EventContainer<T>) container.eventContainer;
-        eventContainer.consumer().accept(event, subs);
+        eventContainer.getConsumer().accept(event, subs);
 
-        Loader.logger.debug("Called event: {}", event.getType().name());
+        Loader.logger.debug("Called event: {}", event.getType().getName());
     }
-
-    private record ContainerWrapper(
-            EventContainer<?> eventContainer,
-            Collection<ISubscriberContainer<?>> subscribers
-    ) {
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            ContainerWrapper that = (ContainerWrapper) o;
-
-            return eventContainer.equals(that.eventContainer);
-        }
-
-        @Override
-        public int hashCode() {
-            return eventContainer.hashCode();
-        }
+    @Data
+    static class ContainerWrapper {
+        final EventContainer<?> eventContainer;
+        @EqualsAndHashCode.Exclude final Collection<ISubscriberContainer<?>> subscribers;
     }
 }

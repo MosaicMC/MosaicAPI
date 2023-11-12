@@ -40,7 +40,6 @@ public final class Loader implements ILoader {
         return INSTANCE.isInitialized();
     }
 
-
     private void load() {
         logger.info("Loaded plugins: {}", pluginManager.getPlugins().keySet());
     }
