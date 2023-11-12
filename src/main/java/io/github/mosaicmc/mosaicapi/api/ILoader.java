@@ -10,5 +10,9 @@ public interface ILoader {
         return Loader.getInstance();
     }
 
+    static boolean isLoaded() {
+        return Loader.isLoaded();
+    }
+
     MinecraftServer getServer();
 }

@@ -1,68 +1,89 @@
 package io.github.mosaicmc.mosaicapi.internal;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.ImmutableBiMap;
 import io.github.mosaicmc.mosaicapi.api.Event;
 import io.github.mosaicmc.mosaicapi.api.IEventManager;
+import io.github.mosaicmc.mosaicapi.api.ISubscriberContainer;
 import io.github.mosaicmc.mosaicapi.utils.Type;
-import org.jetbrains.annotations.ApiStatus;
+import lombok.val;
 
-import java.util.IdentityHashMap;
+import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-@ApiStatus.Internal
 public final class EventManager implements IEventManager {
-    @SuppressWarnings("rawtypes")
-    private final Map<Type<?>, EventRegContainer> events = new IdentityHashMap<>();
+    private final BiMap<Type<?>, ContainerWrapper> handlerMap;
 
-    private EventManager(Set<EventRegistry> eventRegs, Set<SubscriberRegistry> subscriberRegs) {
-        registerEvents(eventRegs);
-        registerSubscribers(subscriberRegs);
+    EventManager(Map<SubscriberRegistry, EventRegistry> registryMap) {
+        this.handlerMap = combineEventsWithSubscribers(registryMap);
     }
 
-    static EventManager initialize(Map<SubscriberRegistry, EventRegistry> registryMap) {
-        final var values = Set.copyOf(registryMap.values());
-        final var keys = registryMap.keySet();
-        return new EventManager(values, keys);
+    private BiMap<Type<?>, ContainerWrapper> combineEventsWithSubscribers(Map<SubscriberRegistry, EventRegistry> registryMap) {
+        val builder = new ConcurrentHashMap<Type<?>, ContainerWrapper>(registryMap.size());
+
+        registerEvents(builder, registryMap.values());
+        registerSubscribers(builder, registryMap.keySet());
+
+        return ImmutableBiMap.copyOf(builder);
     }
 
-    private void registerEvents(Set<EventRegistry> eventRegs) {
-        for (final var eventReg : eventRegs) {
-            final var rawEvents = eventReg.getAll();
-            rawEvents.forEach((type, event) -> {
-                this.events.put(type, new EventRegContainer<>(event, ConcurrentHashMap.newKeySet()));
-            });
-        }
+    private void registerEvents(Map<Type<?>, ContainerWrapper> builder, Collection<EventRegistry> eventRegs) {
+        eventRegs.parallelStream()
+                .flatMap(registry -> registry.getEvents().entrySet().parallelStream())
+                .forEach(entry ->
+                        builder.put(entry.getKey(), new ContainerWrapper(entry.getValue(), ConcurrentHashMap.newKeySet()))
+                );
     }
 
-    private void registerSubscribers(Set<SubscriberRegistry> subscriberRegs) {
-        for (final var subscriberReg : subscriberRegs) {
-            final var rawSubs = subscriberReg.getAll();
-            rawSubs.forEach((eventType, sub) -> {
-                if (!events.containsKey(eventType)) {
-                    throw new IllegalStateException("Not registered event: " + eventType);
-                }
-                final var subs = events.get(eventType).subscribers();
-                subs.add(sub);
-            });
-        }
+    private void registerSubscribers(Map<Type<?>, ContainerWrapper> builder, Collection<SubscriberRegistry> subscriberRegs) {
+        subscriberRegs.parallelStream()
+                .flatMap(registry -> registry.getSubscribers().entrySet().parallelStream())
+                .forEach(entry -> {
+                    val type = entry.getKey();
+                    val sub = entry.getValue();
+                    val eventContainer = builder.get(type);
+
+                    if (eventContainer == null) {
+                        throw new IllegalStateException("Not registered event: " + type);
+                    }
+
+                    eventContainer.subscribers.add(sub);
+                });
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <T extends Event<T>> void callEvent(T event) {
-        if (!events.containsKey(event.getType())) {
-            throw new IllegalStateException("Not registered event: " + event.getType());
-        }
+        val container = handlerMap.get(event.getType());
 
-        final var subs = events.get(event.getType()).subscribers();
+        if (container == null) throw new IllegalStateException("Not registered event: " + event.getType().name());
+        if (container.subscribers.isEmpty()) return;
 
-        events.get(event.getType()).event().callback().accept(event, subs);
+        val subs = (Collection<ISubscriberContainer<T>>) (Object) container.subscribers;
+        val eventContainer = (EventContainer<T>) container.eventContainer;
+        eventContainer.consumer().accept(event, subs);
 
-        Loader.logger.info("Called event: {}", event.getType());
+        Loader.logger.debug("Called event: {}", event.getType().name());
     }
 
-    private record EventRegContainer<T extends Event<T>>(
-            EventContainer<T> event,
-            Set<SubscriberContainer<T>> subscribers) {
+    private record ContainerWrapper(
+            EventContainer<?> eventContainer,
+            Collection<ISubscriberContainer<?>> subscribers
+    ) {
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            ContainerWrapper that = (ContainerWrapper) o;
+
+            return eventContainer.equals(that.eventContainer);
+        }
+
+        @Override
+        public int hashCode() {
+            return eventContainer.hashCode();
+        }
     }
 }

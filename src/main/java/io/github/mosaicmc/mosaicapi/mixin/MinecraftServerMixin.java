@@ -1,5 +1,6 @@
 package io.github.mosaicmc.mosaicapi.mixin;
 
+import io.github.mosaicmc.mosaicapi.api.IEventManager;
 import io.github.mosaicmc.mosaicapi.internal.Loader;
 import io.github.mosaicmc.mosaicapi.test.TestEvent;
 import net.minecraft.server.MinecraftServer;
@@ -19,10 +20,6 @@ public abstract class MinecraftServerMixin {
 
     @Inject(at = @At("HEAD"), method = "isOnlineMode")
     public void isRunning(CallbackInfoReturnable<Boolean> cir) {
-        loader.getEventManager().callEvent(new TestEvent());
+        IEventManager.getInstance().callEvent(new TestEvent());
     }
-
-//    public MinecraftServerMixin(Thread thread, LevelStorage.Session session, ResourcePackManager resourcePackManager, SaveLoader saveLoader, Proxy proxy, DataFixer dataFixer, ApiServices apiServices, WorldGenerationProgressListenerFactory worldGenerationProgressListenerFactory) {
-//        super(thread, session, resourcePackManager, saveLoader, proxy, dataFixer, apiServices, worldGenerationProgressListenerFactory);
-//    }
 }

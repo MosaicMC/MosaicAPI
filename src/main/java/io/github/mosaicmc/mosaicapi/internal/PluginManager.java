@@ -2,102 +2,94 @@ package io.github.mosaicmc.mosaicapi.internal;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
+import io.github.mosaicmc.mosaicapi.api.IPluginContainer;
 import io.github.mosaicmc.mosaicapi.api.IPluginManager;
 import io.github.mosaicmc.mosaicapi.api.PluginEntrypoint;
-import io.github.mosaicmc.mosaicapi.utils.InitHelper;
+import lombok.Getter;
+import lombok.val;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
-import org.jetbrains.annotations.ApiStatus;
+import net.fabricmc.loader.api.metadata.ModMetadata;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@ApiStatus.Internal
 public final class PluginManager implements IPluginManager {
     private final FabricLoader fabricLoader;
-    private final InitHelper<BiMap<String, PluginContainer>> pluginMapInitHelper;
-    private final InitHelper<EventManager> eventManagerInitHelper;
+    private final BiMap<String, PluginContainer> plugins;
+    @Getter
+    private final EventManager eventManager;
 
-    private PluginManager() {
+    PluginManager() {
         this.fabricLoader = FabricLoader.getInstance();
-        this.pluginMapInitHelper = new InitHelper<>();
-        this.eventManagerInitHelper = new InitHelper<>();
+        this.plugins = generatePlugins();
+        this.eventManager = loadPlugins();
     }
 
-    public static PluginManager initialize() {
-        PluginManager manager = new PluginManager();
-        manager.generatePlugins();
-        manager.loadPlugins();
-        return manager;
-    }
-
-    private BiMap<String, PluginContainer> collectPluginMap(List<EntrypointContainer<PluginEntrypoint>> entrypointContainers) {
-        Map<String, PluginContainer> pluginMap = new HashMap<>();
+    private BiMap<String, PluginContainer> generatePlugins() {
+        val entrypointContainers = fabricLoader.getEntrypointContainers("plugin", PluginEntrypoint.class);
+        val pluginMap = new HashMap<String, PluginContainer>();
         entrypointContainers.forEach(entry -> addPlugin(pluginMap, entry));
         return ImmutableBiMap.copyOf(pluginMap);
     }
 
-    private void generatePlugins() {
-        pluginMapInitHelper.initialize(collectPluginMap(
-                fabricLoader.getEntrypointContainers("plugin", PluginEntrypoint.class)
-        ));
-    }
-
     private void addPlugin(Map<String, PluginContainer> pluginMap, EntrypointContainer<PluginEntrypoint> entrypointContainer) {
-        final var metadata = entrypointContainer.getProvider().getMetadata();
+        val metadata = entrypointContainer.getProvider().getMetadata();
 
         if (pluginMap.containsKey(metadata.getId())) {
             throw new IllegalStateException("Duplicate initialization points. Plugin: " + metadata.getId());
         }
 
-        PluginContainer container = new PluginContainer(
-                metadata.getId(),
-                metadata.getName(),
-                metadata.getDescription(),
-                entrypointContainer.getEntrypoint(),
-                LoggerFactory.getLogger(metadata.getName())
-        );
+        val container = createPluginContainer(metadata, entrypointContainer.getEntrypoint());
 
         pluginMap.put(metadata.getId(), container);
     }
 
-    private void loadPlugins() {
-        final var registryMap = new ConcurrentHashMap<SubscriberRegistry, EventRegistry>();
+    private PluginContainer createPluginContainer(ModMetadata metadata, PluginEntrypoint entrypoint) {
+        val id = metadata.getId();
+        val name = metadata.getName();
+        val description = metadata.getDescription();
+        val logger = LoggerFactory.getLogger(name);
 
-        pluginMapInitHelper.get().values().parallelStream()
+        return new PluginContainer(id, name, description, entrypoint, logger);
+    }
+
+    private EventManager loadPlugins() {
+        val registryMap = new ConcurrentHashMap<SubscriberRegistry, EventRegistry>();
+
+        plugins.values().parallelStream()
                 .forEach(plugin -> loadPlugin(plugin, registryMap));
 
-        eventManagerInitHelper.initialize(() -> EventManager.initialize(registryMap));
+        return new EventManager(registryMap);
     }
 
     private void loadPlugin(PluginContainer plugin, Map<SubscriberRegistry, EventRegistry> registryMap) {
-        PluginEntrypoint entrypoint = plugin.entrypoint();
+        val entrypoint = plugin.entrypoint();
+
         entrypoint.plugin.initialize(plugin);
-        SubscriberRegistry subscriberRegistry = callPluginLoad(plugin, entrypoint);
-        EventRegistry eventRegistry = callPluginEventRegistry(plugin, entrypoint);
+
+        val subscriberRegistry = callPluginLoad(plugin, entrypoint);
+        val eventRegistry = callPluginEventRegistry(plugin, entrypoint);
+
         registryMap.put(subscriberRegistry, eventRegistry);
     }
 
     private SubscriberRegistry callPluginLoad(PluginContainer plugin, PluginEntrypoint entrypoint) {
-        SubscriberRegistry subscriberRegistry = new SubscriberRegistry(plugin);
+        val subscriberRegistry = new SubscriberRegistry(plugin);
         entrypoint.onLoad(subscriberRegistry);
         return subscriberRegistry;
     }
 
     private EventRegistry callPluginEventRegistry(PluginContainer plugin, PluginEntrypoint entrypoint) {
-        EventRegistry eventRegistry = new EventRegistry(plugin);
+        val eventRegistry = new EventRegistry(plugin);
         entrypoint.registerEvent(eventRegistry);
         return eventRegistry;
     }
 
-    public BiMap<String, PluginContainer> getPlugins() {
-        return pluginMapInitHelper.get();
-    }
-
-    public EventManager getEventManager() {
-        return eventManagerInitHelper.get();
+    @Override
+    public BiMap<String, ? extends IPluginContainer> getPlugins() {
+        return plugins;
     }
 }

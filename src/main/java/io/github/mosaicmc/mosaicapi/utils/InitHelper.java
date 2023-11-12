@@ -4,7 +4,6 @@ import org.jetbrains.annotations.Nullable;
 import oshi.annotation.concurrent.ThreadSafe;
 
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Supplier;
 
 import static java.util.Objects.requireNonNull;
 
@@ -12,18 +11,11 @@ import static java.util.Objects.requireNonNull;
 public final class InitHelper<T> {
     private final AtomicReference<@Nullable T> atomicValue = new AtomicReference<>();
 
-    public T initialize(Supplier<T> supplier) {
-        requireNonNull(supplier);
-        if (this.atomicValue.get() != null) return get();
-        final var value = requireNonNull(supplier.get());
-        this.atomicValue.set(value);
-        return value;
-    }
-
-    public void initialize(T initValue) {
+    public T initialize(T initValue) {
         requireNonNull(initValue);
-        if (this.atomicValue.get() != null) return;
+        if (this.atomicValue.get() != null) return initValue;
         this.atomicValue.set(initValue);
+        return initValue;
     }
 
     public boolean isInitialized() {

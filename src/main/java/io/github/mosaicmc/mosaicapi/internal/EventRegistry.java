@@ -1,44 +1,47 @@
 package io.github.mosaicmc.mosaicapi.internal;
 
 import io.github.mosaicmc.mosaicapi.api.Event;
+import io.github.mosaicmc.mosaicapi.api.IEventRegistry;
+import io.github.mosaicmc.mosaicapi.api.ISubscriberContainer;
 import io.github.mosaicmc.mosaicapi.utils.Type;
-import org.jetbrains.annotations.ApiStatus;
+import lombok.Getter;
+import lombok.val;
 
-import java.util.IdentityHashMap;
+import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
 
-@ApiStatus.Internal
-public final class EventRegistry {
+public final class EventRegistry implements IEventRegistry {
+    @Getter
     private final Map<Type<?>, EventContainer<?>> events;
     private final PluginContainer plugin;
 
-    public EventRegistry(PluginContainer plugin) {
+    EventRegistry(PluginContainer plugin) {
         this.plugin = plugin;
-        this.events = new IdentityHashMap<>();
+        this.events = new ConcurrentHashMap<>();
     }
 
+    @Override
     public <T extends Event<T>> void register(Type<T> event) {
         events.put(event, new EventContainer<>(event, (e, subs) -> {
-            for (var sub : subs) {
-                sub.consumer().accept(e);
+            for (val sub : subs) {
+                sub.getConsumer().accept(e);
             }
         }, plugin));
     }
 
+    @Override
     public <T extends Event<T>> void registerParallel(Type<T> event) {
         events.put(event, new EventContainer<>(event,
-                (e, subs) -> subs.parallelStream().forEach(sub -> sub.consumer().accept(e)),
+                (e, subs) -> subs.parallelStream().forEach(sub -> sub.getConsumer().accept(e)),
                 plugin
         ));
     }
 
-    public <T extends Event<T>> void register(Type<T> event, BiConsumer<T, Set<SubscriberContainer<T>>> consumer) {
-        events.put(event, new EventContainer<>(event, consumer, plugin));
-    }
-
-    public Map<Type<?>, EventContainer<?>> getAll() {
-        return Map.copyOf(events);
+    @Override
+    public <T extends Event<T>> void register(Type<T> event, BiConsumer<T, Collection<ISubscriberContainer<T>>> consumer) {
+        val container = new EventContainer<>(event, consumer, plugin);
+        events.put(event, container);
     }
 }

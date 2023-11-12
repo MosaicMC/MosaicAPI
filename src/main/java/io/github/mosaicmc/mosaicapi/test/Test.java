@@ -1,18 +1,18 @@
 package io.github.mosaicmc.mosaicapi.test;
 
+import io.github.mosaicmc.mosaicapi.api.IEventRegistry;
+import io.github.mosaicmc.mosaicapi.api.ISubscriberRegistry;
 import io.github.mosaicmc.mosaicapi.api.PluginEntrypoint;
-import io.github.mosaicmc.mosaicapi.internal.EventRegistry;
-import io.github.mosaicmc.mosaicapi.internal.SubscriberRegistry;
 
 public class Test extends PluginEntrypoint {
     @Override
-    public void onLoad(SubscriberRegistry sr) {
+    public void onLoad(ISubscriberRegistry sr) {
         this.getPlugin().getLogger().info("{}", this.getPlugin().getId());
         sr.subscribe(TestEvent.type, event -> getPlugin().getLogger().info("{}", event.getType()));
     }
 
     @Override
-    public void registerEvent(EventRegistry er) {
+    public void registerEvent(IEventRegistry er) {
         er.register(TestEvent.type);
     }
 }

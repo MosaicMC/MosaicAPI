@@ -6,6 +6,6 @@ import org.jetbrains.annotations.ApiStatus;
 import java.util.function.Consumer;
 
 @ApiStatus.NonExtendable
-public interface IPluginRegistry {
+public interface ISubscriberRegistry {
     <T extends Event<T>> void subscribe(Type<T> event, Consumer<T> consumer);
 }

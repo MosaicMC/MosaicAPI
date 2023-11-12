@@ -4,8 +4,9 @@ import java.util.*
 plugins {
     id("fabric-loom") version "1.4-SNAPSHOT"
     id("maven-publish")
-    id("com.diffplug.spotless") version "6.21.0"
+    id("com.diffplug.spotless") version "6.22.0"
     id("org.jetbrains.intellij") version "1.16.1-SNAPSHOT"
+    id("io.freefair.lombok") version "8.4"
 }
 
 repositories {
@@ -78,10 +79,10 @@ tasks.compileJava {
 }
 
 intellij {
-    version = "2023.2.4"
+    version = "2023.2.5"
     type = "IU"
 }
 
 val String.configKey: String
-    get() = project.properties[this] as String
+    get() = project.properties[this].toString()
 

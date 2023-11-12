@@ -1,7 +1,5 @@
 package io.github.mosaicmc.mosaicapi.api;
 
-import io.github.mosaicmc.mosaicapi.internal.EventRegistry;
-import io.github.mosaicmc.mosaicapi.internal.SubscriberRegistry;
 import io.github.mosaicmc.mosaicapi.utils.InitHelper;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -18,10 +16,10 @@ public abstract class PluginEntrypoint {
     }
 
     @ApiStatus.OverrideOnly
-    public abstract void onLoad(SubscriberRegistry sr);
+    public abstract void onLoad(ISubscriberRegistry sr);
 
     @ApiStatus.OverrideOnly
-    public void registerEvent(EventRegistry er) {
+    public void registerEvent(IEventRegistry er) {
 
     }
 }
