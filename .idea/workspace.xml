@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f6b17c91-b86c-4364-a3c0-337342463c80" name="Changes" comment="Clean up">
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/IEventRegistry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/ISubscriberContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/MosaicAPI.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/MosaicAPI.test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/mosaicapi.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/mosaicapi.test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Minecraft_Server.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.sdkmanrc" beforeDir="false" afterPath="$PROJECT_DIR$/.sdkmanrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/IEventManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/IEventManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/ILoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/ILoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/IPluginManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/IPluginManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/IPluginRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/ISubscriberRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/PluginEntrypoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/PluginEntrypoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/EventContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/EventContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/EventHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/EventManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/EventManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/EventRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/EventRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/Loader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/Loader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/PluginContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/PluginContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/PluginManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/PluginManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/SubscriberContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/SubscriberContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/SubscriberRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/SubscriberRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/mixin/MinecraftServerMixin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/mixin/MinecraftServerMixin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/test/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/utils/InitHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/utils/InitHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/utils/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/utils/Type.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation>
+            <after_sync>
+              <task name="setupDependencies" />
+            </after_sync>
+          </activation>
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="AnnotationType" />
+        <option value="package-info" />
+        <option value="Class" />
+        <option value="Interface" />
+        <option value="Record" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.gradle/caches/fabric-loom/minecraftMaven/net/minecraft/minecraft-serveronly/23w43a-net.fabricmc.yarn.23w43a.23w43a+build.2/minecraft-serveronly-23w43a-net.fabricmc.yarn.23w43a.23w43a+build.2-sources.jar!/net/minecraft/util/annotation/FieldsAreNonnullByDefault.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/32.1.2-jre/e1911d4544f426600132fbd450a7ccab8a3ce8dc/guava-32.1.2-jre-sources.jar!/com/google/common/collect/ImmutableBiMap.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.fabricmc/fabric-loader/0.14.23/abbc6a8b48b10d1bfc535db45f647af645c54eb4/fabric-loader-0.14.23-sources.jar!/net/fabricmc/loader/api/FabricLoader.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.fabricmc/fabric-loader/0.14.23/abbc6a8b48b10d1bfc535db45f647af645c54eb4/fabric-loader-0.14.23-sources.jar!/net/fabricmc/loader/impl/FabricLoaderImpl.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.sdkman/candidates/java/21-graal/lib/src.zip!/java.base/java/lang/IllegalAccessError.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2WkTShpIv2H6P16dh52NAOqirSB" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "try-3",
+    "last_opened_file_path": "/home/kittech/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.idea/ideaIU/2023.2.4/1eab26d501fe1c8184d70616a64bdc8efc0b7ecb/ideaIU-2023.2.4/lib/ant/lib/ant.jar",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Global Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.MosaicAPI [runServer]">
+    <configuration name="MosaicAPI [runServer]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="runServer" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="mosaicapi.test" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="mosaicapi.test" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f6b17c91-b86c-4364-a3c0-337342463c80" name="Changes" comment="" />
+      <created>1696957150918</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1696957150918</updated>
+      <workItem from="1697275581300" duration="50000" />
+      <workItem from="1697275637961" duration="3856000" />
+      <workItem from="1697364170881" duration="2271000" />
+      <workItem from="1697366449598" duration="2785000" />
+      <workItem from="1697373097898" duration="600000" />
+      <workItem from="1697466734833" duration="920000" />
+      <workItem from="1697474872780" duration="514000" />
+      <workItem from="1697537493196" duration="599000" />
+      <workItem from="1697550498703" duration="2534000" />
+      <workItem from="1697561290152" duration="1913000" />
+      <workItem from="1697563314148" duration="594000" />
+      <workItem from="1697563914649" duration="1298000" />
+      <workItem from="1697566980795" duration="129000" />
+      <workItem from="1697567115647" duration="237000" />
+      <workItem from="1697622706125" duration="1516000" />
+      <workItem from="1697738247652" duration="1953000" />
+      <workItem from="1697745016750" duration="599000" />
+      <workItem from="1697815065729" duration="25000" />
+      <workItem from="1697815117919" duration="15000" />
+      <workItem from="1697967041718" duration="606000" />
+      <workItem from="1697980771433" duration="6858000" />
+      <workItem from="1697993503769" duration="2307000" />
+      <workItem from="1697999479958" duration="2332000" />
+      <workItem from="1698003614235" duration="1348000" />
+      <workItem from="1698257673083" duration="26000" />
+      <workItem from="1698320912799" duration="338000" />
+      <workItem from="1698321257809" duration="174000" />
+      <workItem from="1698321440605" duration="599000" />
+      <workItem from="1698336759968" duration="699000" />
+      <workItem from="1698337475196" duration="10787000" />
+      <workItem from="1698353069511" duration="1957000" />
+      <workItem from="1698426400523" duration="658000" />
+      <workItem from="1698427494865" duration="32000" />
+      <workItem from="1698427534520" duration="9153000" />
+      <workItem from="1698495451529" duration="3468000" />
+      <workItem from="1698508495972" duration="5280000" />
+      <workItem from="1698776246480" duration="606000" />
+      <workItem from="1698784277646" duration="1036000" />
+      <workItem from="1698826941836" duration="6810000" />
+      <workItem from="1698947104484" duration="2039000" />
+      <workItem from="1698955146240" duration="729000" />
+      <workItem from="1698959978092" duration="649000" />
+      <workItem from="1699028905012" duration="2433000" />
+      <workItem from="1699037776618" duration="1577000" />
+      <workItem from="1699047542627" duration="1103000" />
+      <workItem from="1699095364571" duration="1999000" />
+      <workItem from="1699109973704" duration="2734000" />
+      <workItem from="1699119334017" duration="2339000" />
+      <workItem from="1699124436832" duration="1164000" />
+      <workItem from="1699129183371" duration="2869000" />
+      <workItem from="1699181394497" duration="1736000" />
+      <workItem from="1699183140393" duration="783000" />
+      <workItem from="1699183929972" duration="194000" />
+      <workItem from="1699194055944" duration="6124000" />
+      <workItem from="1699209945448" duration="2389000" />
+      <workItem from="1699379744070" duration="1099000" />
+      <workItem from="1699384101210" duration="975000" />
+      <workItem from="1699393588611" duration="273000" />
+      <workItem from="1699432915523" duration="6640000" />
+      <workItem from="1699526428207" duration="7822000" />
+      <workItem from="1699638927848" duration="717000" />
+      <workItem from="1699707095736" duration="2322000" />
+      <workItem from="1699711456190" duration="4000" />
+      <workItem from="1699711480297" duration="1806000" />
+      <workItem from="1699786640057" duration="141000" />
+      <workItem from="1699788124204" duration="2696000" />
+      <workItem from="1699792674296" duration="5515000" />
+    </task>
+    <task id="LOCAL-00001" summary="Cleanup">
+      <option name="closed" value="true" />
+      <created>1697366038404</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1697366038404</updated>
+    </task>
+    <task id="LOCAL-00002" summary="removed gradle files">
+      <option name="closed" value="true" />
+      <created>1697366118347</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1697366118347</updated>
+    </task>
+    <task id="LOCAL-00003" summary="use sdkman">
+      <option name="closed" value="true" />
+      <created>1697366648120</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1697366648120</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix">
+      <option name="closed" value="true" />
+      <created>1697366914920</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1697366914920</updated>
+    </task>
+    <task id="LOCAL-00005" summary="fix v2">
+      <option name="closed" value="true" />
+      <created>1697367199267</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1697367199267</updated>
+    </task>
+    <task id="LOCAL-00006" summary="fix v3">
+      <option name="closed" value="true" />
+      <created>1697367276110</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1697367276110</updated>
+    </task>
+    <task id="LOCAL-00007" summary="fix v4">
+      <option name="closed" value="true" />
+      <created>1697367413584</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1697367413584</updated>
+    </task>
+    <task id="LOCAL-00008" summary="fix v5">
+      <option name="closed" value="true" />
+      <created>1697367590747</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1697367590747</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fix v6">
+      <option name="closed" value="true" />
+      <created>1697367780431</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1697367780431</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fix v7">
+      <option name="closed" value="true" />
+      <created>1697368663335</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1697368663335</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Added Loader">
+      <option name="closed" value="true" />
+      <created>1697561339596</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1697561339596</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Removed jakarta">
+      <option name="closed" value="true" />
+      <created>1697623492504</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1697623492504</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Added plugin loading">
+      <option name="closed" value="true" />
+      <created>1698355025846</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1698355025846</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Better plugin loading">
+      <option name="closed" value="true" />
+      <created>1698443235659</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1698443235659</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Multi initializers made impossible">
+      <option name="closed" value="true" />
+      <created>1698529706590</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1698529706590</updated>
+    </task>
+    <task id="LOCAL-00016" summary=".">
+      <option name="closed" value="true" />
+      <created>1699435170410</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1699435170410</updated>
+    </task>
+    <task id="LOCAL-00017" summary="It is working!">
+      <option name="closed" value="true" />
+      <created>1699438549964</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1699438549964</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Clean up">
+      <option name="closed" value="true" />
+      <created>1699805617283</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1699805617283</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Cleanup" />
+    <MESSAGE value="removed gradle files" />
+    <MESSAGE value="use sdkman" />
+    <MESSAGE value="fix" />
+    <MESSAGE value="fix v2" />
+    <MESSAGE value="fix v3" />
+    <MESSAGE value="fix v4" />
+    <MESSAGE value="fix v5" />
+    <MESSAGE value="fix v6" />
+    <MESSAGE value="fix v7" />
+    <MESSAGE value="Added Loader" />
+    <MESSAGE value="Removed jakarta" />
+    <MESSAGE value="Added plugin loading" />
+    <MESSAGE value="Better plugin loading" />
+    <MESSAGE value="Multi initializers made impossible" />
+    <MESSAGE value="." />
+    <MESSAGE value="It is working!" />
+    <MESSAGE value="Clean up" />
+    <option name="LAST_COMMIT_MESSAGE" value="Clean up" />
+  </component>
+</project>
