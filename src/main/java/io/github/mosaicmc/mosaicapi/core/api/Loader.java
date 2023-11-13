@@ -1,6 +1,6 @@
-package io.github.mosaicmc.mosaicapi.api;
+package io.github.mosaicmc.mosaicapi.core.api;
 
-import io.github.mosaicmc.mosaicapi.internal.Loader;
+import io.github.mosaicmc.mosaicapi.core.internal.LoaderImpl;
 import net.minecraft.server.MinecraftServer;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -8,14 +8,14 @@ import org.jetbrains.annotations.ApiStatus;
  * API interface for the loader.
  */
 @ApiStatus.NonExtendable
-public interface ILoader {
+public interface Loader {
     /**
      * Returns an instance of the ILoader interface.
      *
      * @return An instance of the ILoader interface.
      */
-    static ILoader getInstance() {
-        return Loader.getInstance();
+    static Loader getInstance() {
+        return LoaderImpl.getInstance();
     }
 
     /**
@@ -24,7 +24,7 @@ public interface ILoader {
      * @return true if the loader is loaded, false otherwise.
      */
     static boolean isLoaded() {
-        return Loader.isLoaded();
+        return LoaderImpl.isLoaded();
     }
 
     /**

@@ -1,8 +1,8 @@
-package io.github.mosaicmc.mosaicapi.internal;
+package io.github.mosaicmc.mosaicapi.core.internal;
 
-import io.github.mosaicmc.mosaicapi.api.Event;
-import io.github.mosaicmc.mosaicapi.api.ISubscriberContainer;
-import io.github.mosaicmc.mosaicapi.api.ISubscriberRegistry;
+import io.github.mosaicmc.mosaicapi.core.api.Event;
+import io.github.mosaicmc.mosaicapi.core.api.SubscriberContainer;
+import io.github.mosaicmc.mosaicapi.core.api.SubscriberRegistry;
 import io.github.mosaicmc.mosaicapi.utils.Type;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,13 +15,13 @@ import java.util.function.Consumer;
  * Internal class, used for subscriber registration.
  */
 @EqualsAndHashCode(callSuper = false)
-public final class SubscriberRegistry implements ISubscriberRegistry {
+final class SubscriberRegistryImpl implements SubscriberRegistry {
     @Getter
     @EqualsAndHashCode.Exclude
-    private final Map<Type<?>, ISubscriberContainer<?>> subscribers;
-    private final PluginContainer plugin;
+    private final Map<Type<?>, SubscriberContainer<?>> subscribers;
+    private final PluginContainerImpl plugin;
 
-    SubscriberRegistry(PluginContainer plugin) {
+    SubscriberRegistryImpl(PluginContainerImpl plugin) {
         this.plugin = plugin;
         this.subscribers = new ConcurrentHashMap<>();
     }
@@ -31,6 +31,6 @@ public final class SubscriberRegistry implements ISubscriberRegistry {
         if (subscribers.containsKey(event)) {
             throw new IllegalStateException("Duplicate subscribers for " + event.getName() + ". Plugin: " + plugin.getId());
         }
-        subscribers.put(event, new SubscriberContainer<>(event, consumer, plugin));
+        subscribers.put(event, new SubscriberContainerImpl<>(event, consumer, plugin));
     }
 }

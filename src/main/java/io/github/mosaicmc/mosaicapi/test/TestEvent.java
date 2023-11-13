@@ -1,6 +1,6 @@
 package io.github.mosaicmc.mosaicapi.test;
 
-import io.github.mosaicmc.mosaicapi.api.Event;
+import io.github.mosaicmc.mosaicapi.core.api.Event;
 import io.github.mosaicmc.mosaicapi.utils.Type;
 
 public final class TestEvent extends Event<TestEvent> {

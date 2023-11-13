@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 public class Type<T> {
     private final String name;
+
     public static <T> Type<T> from(Class<T> clazz) {
         return new Type<>(clazz.getName());
     }

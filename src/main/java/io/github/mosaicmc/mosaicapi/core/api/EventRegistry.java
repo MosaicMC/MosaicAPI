@@ -1,4 +1,4 @@
-package io.github.mosaicmc.mosaicapi.api;
+package io.github.mosaicmc.mosaicapi.core.api;
 
 import io.github.mosaicmc.mosaicapi.utils.Type;
 import org.jetbrains.annotations.ApiStatus;
@@ -10,12 +10,12 @@ import java.util.function.BiConsumer;
  * API interface for the event registry.
  */
 @ApiStatus.NonExtendable
-public interface IEventRegistry {
+public interface EventRegistry {
     /**
      * Registers an event of type T.
      *
      * @param event The event to register.
-     * @param <T> The type of the event.
+     * @param <T>   The type of the event.
      */
     <T extends Event<T>> void register(Type<T> event);
 
@@ -34,5 +34,5 @@ public interface IEventRegistry {
      * @param consumer the consumer that handles the event
      * @param <T>      the type of the event
      */
-    <T extends Event<T>> void register(Type<T> event, BiConsumer<T, Collection<ISubscriberContainer<T>>> consumer);
+    <T extends Event<T>> void register(Type<T> event, BiConsumer<T, Collection<SubscriberContainer<T>>> consumer);
 }

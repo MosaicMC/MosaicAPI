@@ -1,21 +1,21 @@
-package io.github.mosaicmc.mosaicapi.api;
+package io.github.mosaicmc.mosaicapi.core.api;
 
 import com.google.common.collect.BiMap;
-import io.github.mosaicmc.mosaicapi.internal.Loader;
+import io.github.mosaicmc.mosaicapi.core.internal.LoaderImpl;
 import org.jetbrains.annotations.ApiStatus;
 
 /**
  * API interface for the plugin manager.
  */
 @ApiStatus.NonExtendable
-public interface IPluginManager {
+public interface PluginManager {
     /**
      * Returns the singleton instance of the plugin manager.
      *
      * @return the plugin manager instance
      */
-    static IPluginManager getInstance() {
-        return Loader.getInstance().pluginManager;
+    static PluginManager getInstance() {
+        return LoaderImpl.getInstance().getPluginManager();
     }
 
     /**
@@ -23,5 +23,5 @@ public interface IPluginManager {
      *
      * @return A bidirectional map of plugin names to plugin containers.
      */
-    BiMap<String, IPluginContainer> getPlugins();
+    BiMap<String, PluginContainer> getPlugins();
 }

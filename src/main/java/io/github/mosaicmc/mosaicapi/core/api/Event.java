@@ -1,4 +1,4 @@
-package io.github.mosaicmc.mosaicapi.api;
+package io.github.mosaicmc.mosaicapi.core.api;
 
 /**
  * Base class for all events.

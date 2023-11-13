@@ -1,4 +1,4 @@
-package io.github.mosaicmc.mosaicapi.api;
+package io.github.mosaicmc.mosaicapi.core.api;
 
 import io.github.mosaicmc.mosaicapi.utils.Type;
 import org.jetbrains.annotations.ApiStatus;
@@ -9,7 +9,7 @@ import java.util.function.Consumer;
  * API interface for the subscriber registry.
  */
 @ApiStatus.NonExtendable
-public interface ISubscriberRegistry {
+public interface SubscriberRegistry {
     /**
      * Subscribes a consumer to a specific event type.
      *

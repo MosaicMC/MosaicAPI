@@ -1,4 +1,4 @@
-package io.github.mosaicmc.mosaicapi.api;
+package io.github.mosaicmc.mosaicapi.core.api;
 
 import io.github.mosaicmc.mosaicapi.utils.Type;
 

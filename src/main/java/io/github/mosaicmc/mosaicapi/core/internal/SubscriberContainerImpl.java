@@ -1,7 +1,7 @@
-package io.github.mosaicmc.mosaicapi.internal;
+package io.github.mosaicmc.mosaicapi.core.internal;
 
-import io.github.mosaicmc.mosaicapi.api.Event;
-import io.github.mosaicmc.mosaicapi.api.ISubscriberContainer;
+import io.github.mosaicmc.mosaicapi.core.api.Event;
+import io.github.mosaicmc.mosaicapi.core.api.SubscriberContainer;
 import io.github.mosaicmc.mosaicapi.utils.Type;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,9 +12,9 @@ import java.util.function.Consumer;
  * Internal class, used for subscriber registration.
  */
 @Data
-class SubscriberContainer<T extends Event<T>> implements ISubscriberContainer<T> {
+final class SubscriberContainerImpl<T extends Event<T>> implements SubscriberContainer<T> {
     private final Type<T> event;
     @EqualsAndHashCode.Exclude
     private final Consumer<T> consumer;
-    private final PluginContainer plugin;
+    private final PluginContainerImpl plugin;
 }

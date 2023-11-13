@@ -1,4 +1,4 @@
-package io.github.mosaicmc.mosaicapi.api;
+package io.github.mosaicmc.mosaicapi.core.api;
 
 import io.github.mosaicmc.mosaicapi.utils.InitHelper;
 import org.jetbrains.annotations.ApiStatus;
@@ -8,7 +8,7 @@ import org.jetbrains.annotations.ApiStatus;
  */
 public abstract class PluginEntrypoint {
     @ApiStatus.Internal
-    public final InitHelper<IPluginContainer> plugin;
+    public final InitHelper<PluginContainer> plugin;
 
     protected PluginEntrypoint() {
         this.plugin = new InitHelper<>();
@@ -19,7 +19,7 @@ public abstract class PluginEntrypoint {
      *
      * @return The plugin container.
      */
-    public final IPluginContainer getPlugin() {
+    public final PluginContainer getPlugin() {
         return plugin.get();
     }
 
@@ -30,7 +30,7 @@ public abstract class PluginEntrypoint {
      * @param sr The ISubscriberRegistry object to register with.
      */
     @ApiStatus.OverrideOnly
-    public abstract void onLoad(ISubscriberRegistry sr);
+    public abstract void onLoad(SubscriberRegistry sr);
 
     /**
      * Registers the given event registry.
@@ -38,7 +38,7 @@ public abstract class PluginEntrypoint {
      * @param er the event registry to register
      */
     @ApiStatus.OverrideOnly
-    public void registerEvent(IEventRegistry er) {
-        // TODO: Implement event registration logic
+    public void registerEvent(EventRegistry er) {
+        // Implement event registration logic
     }
 }
