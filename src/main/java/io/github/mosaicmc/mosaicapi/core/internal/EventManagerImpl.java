@@ -18,33 +18,11 @@ import java.util.concurrent.ConcurrentHashMap;
 final class EventManagerImpl implements EventManager {
     private final BiMap<Type<?>, ContainerWrapper> handlerMap;
 
-    EventManagerImpl() {
-        this.handlerMap = subscribersToEvents(loadPlugins(PluginManager.getInstance().getPlugins()));
+    EventManagerImpl(BiMap<SubscriberRegistryImpl, EventRegistryImpl> registryMap) {
+        this.handlerMap = subscribersToEvents(registryMap);
     }
 
-    private BiMap<SubscriberRegistryImpl, EventRegistryImpl> loadPlugins(BiMap<String, PluginContainer> plugins) {
-        val registryMap = ImmutableBiMap.<SubscriberRegistryImpl, EventRegistryImpl>builderWithExpectedSize(plugins.size());
-        plugins.values().forEach(plugin -> loadPlugin((PluginContainerImpl) plugin, registryMap));
-        return registryMap.build();
-    }
 
-    private void loadPlugin(PluginContainerImpl plugin, ImmutableBiMap.Builder<SubscriberRegistryImpl, EventRegistryImpl> registryMap) {
-        val subscriberRegistry = callPluginLoad(plugin);
-        val eventRegistry = callPluginEventRegistry(plugin);
-        registryMap.put(subscriberRegistry, eventRegistry);
-    }
-
-    private SubscriberRegistryImpl callPluginLoad(PluginContainerImpl plugin) {
-        val subscriberRegistry = new SubscriberRegistryImpl(plugin);
-        plugin.getEntrypoint().onLoad(subscriberRegistry);
-        return subscriberRegistry;
-    }
-
-    private EventRegistryImpl callPluginEventRegistry(PluginContainerImpl plugin) {
-        val eventRegistry = new EventRegistryImpl(plugin);
-        plugin.getEntrypoint().registerEvent(eventRegistry);
-        return eventRegistry;
-    }
 
     private BiMap<Type<?>, ContainerWrapper> subscribersToEvents(BiMap<SubscriberRegistryImpl, EventRegistryImpl> registryMap) {
         val builder = new ConcurrentHashMap<Type<?>, ContainerWrapper>(registryMap.size());

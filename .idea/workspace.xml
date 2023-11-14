@@ -4,32 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6b17c91-b86c-4364-a3c0-337342463c80" name="Changes" comment="Docs :p">
+    <list default="true" id="f6b17c91-b86c-4364-a3c0-337342463c80" name="Changes" comment="Renamed stuff">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/api/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/IEventManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/api/EventManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/IEventRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/api/EventRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/ILoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/api/Loader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/IPluginContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/api/PluginContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/IPluginManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/api/PluginManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/ISubscriberContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/api/SubscriberContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/ISubscriberRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/api/SubscriberRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/PluginEntrypoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/api/PluginEntrypoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/api/Typed.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/api/Typed.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/EventContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/EventContainerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/EventManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/EventManagerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/EventRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/EventRegistryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/Loader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/LoaderImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/PluginContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/PluginContainerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/PluginManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/PluginManagerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/SubscriberContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/SubscriberContainerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/SubscriberRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/SubscriberRegistryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal/package-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/package-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/mixin/MainMixin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/mixin/MainMixin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/mixin/MinecraftServerMixin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/mixin/MinecraftServerMixin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/test/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/test/TestEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/test/TestEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/utils/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/utils/Type.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/EventManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/EventManagerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/LoaderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/LoaderImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/PluginManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/PluginManagerImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -240,7 +219,8 @@
       <workItem from="1699808215693" duration="112000" />
       <workItem from="1699808335343" duration="291000" />
       <workItem from="1699815487231" duration="5886000" />
-      <workItem from="1699905384128" duration="671000" />
+      <workItem from="1699905384128" duration="1290000" />
+      <workItem from="1699983828101" duration="1799000" />
     </task>
     <task id="LOCAL-00001" summary="Cleanup">
       <option name="closed" value="true" />
@@ -410,7 +390,15 @@
       <option name="project" value="LOCAL" />
       <updated>1699808610204</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Renamed stuff">
+      <option name="closed" value="true" />
+      <created>1699908889860</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1699908889860</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -437,6 +425,7 @@
     <MESSAGE value="Clean up" />
     <MESSAGE value="Moved from record to data class" />
     <MESSAGE value="Docs :p" />
-    <option name="LAST_COMMIT_MESSAGE" value="Docs :p" />
+    <MESSAGE value="Renamed stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="Renamed stuff" />
   </component>
 </project>
