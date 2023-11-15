@@ -2,7 +2,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 plugins {
-    alias(libs.plugins.versions)
+    alias(libs.plugins.intellij)
+    alias(libs.plugins.lombok)
+    alias(libs.plugins.spotless)
+    alias(libs.plugins.fabricloom)
 }
 
 repositories {
@@ -10,31 +13,13 @@ repositories {
 }
 
 dependencies {
-    minecraft(
-            group   = "com.mojang",
-            name    = "minecraft",
-            version = "minecraft_version".configKey
-    )
-    mappings(
-            group   = "net.fabricmc",
-            name    = "yarn",
-            version = "${"minecraft_version".configKey}+build.${"mappings_version".configKey}"
-    )
-    modImplementation(
-            group   = "net.fabricmc",
-            name    = "fabric-loader",
-            version = "loader_version".configKey
-    )
-    implementation(
-            group   = "org.vineflower",
-            name    = "vineflower",
-            version = "vineflower_version".configKey
-    )
-    implementation(include(annotationProcessor(
-            group   = "com.github.llamalad7.mixinextras",
-            name    = "mixinextras-fabric",
-            version = "mixin_extras_version".configKey,
-    ))!!)
+    minecraft(libs.bundles.minecraft)
+    mappings(libs.bundles.yarn)
+    modImplementation(libs.bundles.fabric)
+    implementation(libs.bundles.vineflower)
+    implementation(libs.bundles.mixinsextras)
+    annotationProcessor(libs.bundles.mixinsextras)
+    include(libs.bundles.mixinsextras)
 }
 
 loom {
@@ -51,14 +36,14 @@ val targetCompatibility = JavaVersion.VERSION_21
 val archivesBaseName = "archivesBaseName".configKey
 val dataFormat = SimpleDateFormat("yyyy.MM.dd.HH").format(Date())!!
 
-version = "$dataFormat+${"mod_version".configKey}+${"minecraft_version".configKey}"
+version = "$dataFormat+${"mod_version".configKey}+${libs.versions.minecraft}"
 
 tasks.processResources {
     expand(mapOf(
         "version" to project.version,
         "mod_id" to "mod_id".configKey,
-        "loader_version" to "loader_version".configKey,
-        "minecraft_version" to "minecraft_version".configKey,
+        "loader_version" to libs.versions.fabricloader,
+        "minecraft_version" to libs.versions.minecraft,
         "java_version" to "$sourceCompatibility",
     ))
 }

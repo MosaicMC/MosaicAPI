@@ -1,15 +1,30 @@
 [versions]
 mixinextras = "0.2.0"
+vineflower = "1.9.3"
+minecraft = "23w45a"
+fabricloader = "0.14.24"
+yarn = "23w45a+build.10"
+fabricloom = "1.4-SNAPSHOT"
+spotless = "6.22.0"
+intellij = "1.16.1-SNAPSHOT"
+lombok = "8.4"
 
 [libraries]
-mixinextras_fabric = { module = "com.github.llamalad7.mixinextras:mixinextras-fabric", version.ref = "mixinextras" }
+mixinextras-fabric = { module = "com.github.llamalad7.mixinextras:mixinextras-fabric", version.ref = "mixinextras" }
+vineflower-decompiler = { module = "org.vineflower:vineflower", version.ref = "vineflower" }
+minecraft-game = { module = "com.mojang:minecraft", version.ref = "minecraft" }
+fabric-loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabricloader" }
+yarn-mappings = { module = "net.fabricmc:yarn", version.ref = "yarn" }
 
 [bundles]
 mixinsextras = ["mixinextras_fabric"]
+vineflower = ["vineflower_decompiler"]
+minecraft = ["minecraft_game"]
+yarn = ["yarn_mappings"]
+fabric = ["fabric_loader"]
 
 [plugins]
-fabric_loom = { id = "fabric-loom", version = "1.4-SNAPSHOT" }
-maven_publish = { id = "maven-publish" }
-spotless = { id = "com.diffplug.spotless", version = "6.22.0" }
-intellij = { id = "org.jetbrains.intellij", version = "1.16.1-SNAPSHOT" }
-lombok = { id = "io.freefair.lombok", version = "8.4" }
+fabricloom = { id = "fabric-loom", version.ref = "fabricloom" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+intellij = { id = "org.jetbrains.intellij", version.ref = "intellij" }
+lombok = { id = "io.freefair.lombok", version.ref = "lombok" }

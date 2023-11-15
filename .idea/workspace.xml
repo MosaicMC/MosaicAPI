@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6b17c91-b86c-4364-a3c0-337342463c80" name="Changes" comment="Moved load plugins function to LoaderImpl">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="f6b17c91-b86c-4364-a3c0-337342463c80" name="Changes" comment="Added libs.versions.toml">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/api/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/api/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/api/Typed.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/utils/Typed.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/EventManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/EventManagerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/LoaderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/LoaderImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/PluginManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/PluginManagerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -240,7 +238,7 @@
       <workItem from="1699905384128" duration="1290000" />
       <workItem from="1699983828101" duration="3080000" />
       <workItem from="1700040326535" duration="1565000" />
-      <workItem from="1700047916425" duration="1422000" />
+      <workItem from="1700047916425" duration="3130000" />
     </task>
     <task id="LOCAL-00001" summary="Cleanup">
       <option name="closed" value="true" />
@@ -426,7 +424,15 @@
       <option name="project" value="LOCAL" />
       <updated>1699986664534</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Added libs.versions.toml">
+      <option name="closed" value="true" />
+      <created>1700050180007</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1700050180007</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -455,6 +461,7 @@
     <MESSAGE value="Docs :p" />
     <MESSAGE value="Renamed stuff" />
     <MESSAGE value="Moved load plugins function to LoaderImpl" />
-    <option name="LAST_COMMIT_MESSAGE" value="Moved load plugins function to LoaderImpl" />
+    <MESSAGE value="Added libs.versions.toml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added libs.versions.toml" />
   </component>
 </project>
