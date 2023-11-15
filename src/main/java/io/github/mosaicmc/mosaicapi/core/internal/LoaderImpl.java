@@ -29,7 +29,8 @@ public final class LoaderImpl implements Loader {
     private LoaderImpl(MinecraftServer server) {
         this.server = server;
         this.pluginManager = new PluginManagerImpl();
-        this.eventManager = new EventManagerImpl(loadPlugins(pluginManager.getPlugins()));
+        val plugins = pluginManager.getPlugins();
+        this.eventManager = new EventManagerImpl(plugins.isEmpty() ? ImmutableBiMap.of() : loadPlugins(plugins));
         load();
     }
 

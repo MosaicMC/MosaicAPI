@@ -1,6 +1,4 @@
-package io.github.mosaicmc.mosaicapi.core.api;
-
-import io.github.mosaicmc.mosaicapi.utils.Type;
+package io.github.mosaicmc.mosaicapi.utils;
 
 /**
  * For typed classes.

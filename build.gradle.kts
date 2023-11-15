@@ -2,11 +2,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 plugins {
-    id("fabric-loom") version "1.4-SNAPSHOT"
-    id("maven-publish")
-    id("com.diffplug.spotless") version "6.22.0"
-    id("org.jetbrains.intellij") version "1.16.1-SNAPSHOT"
-    id("io.freefair.lombok") version "8.4"
+    alias(libs.plugins.versions)
 }
 
 repositories {

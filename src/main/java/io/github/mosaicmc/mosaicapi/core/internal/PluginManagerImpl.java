@@ -28,12 +28,15 @@ final class PluginManagerImpl implements PluginManager {
         this.plugins = generatePlugins();
     }
 
-
-
     private BiMap<String, PluginContainer> generatePlugins() {
         val entrypointContainers = fabricLoader.getEntrypointContainers("plugin", PluginEntrypoint.class);
+
+        if (entrypointContainers.isEmpty()) return ImmutableBiMap.of();
+
         val pluginMap = new ConcurrentHashMap<String, PluginContainerImpl>();
+
         entrypointContainers.forEach(entry -> addPlugin(pluginMap, entry));
+
         return ImmutableBiMap.copyOf(pluginMap);
     }
 

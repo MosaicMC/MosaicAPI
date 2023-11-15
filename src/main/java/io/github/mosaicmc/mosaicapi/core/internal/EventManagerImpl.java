@@ -19,12 +19,11 @@ final class EventManagerImpl implements EventManager {
     private final BiMap<Type<?>, ContainerWrapper> handlerMap;
 
     EventManagerImpl(BiMap<SubscriberRegistryImpl, EventRegistryImpl> registryMap) {
-        this.handlerMap = subscribersToEvents(registryMap);
+        this.handlerMap = registryMap.isEmpty() ? ImmutableBiMap.of() : subscribersToEvents(registryMap);
     }
 
-
-
     private BiMap<Type<?>, ContainerWrapper> subscribersToEvents(BiMap<SubscriberRegistryImpl, EventRegistryImpl> registryMap) {
+
         val builder = new ConcurrentHashMap<Type<?>, ContainerWrapper>(registryMap.size());
         registerEvents(builder, registryMap.values());
         registerSubscribers(builder, registryMap.keySet());
@@ -57,16 +56,26 @@ final class EventManagerImpl implements EventManager {
         val container = handlerMap.get(event.getType());
         if (container == null) throw new IllegalStateException("Not registered event: " + event.getType().getName());
         if (container.subscribers.isEmpty()) return;
-        val subs = (Collection<SubscriberContainer<T>>) (Object) container.subscribers;
-        val eventContainer = (EventContainerImpl<T>) container.eventContainer;
+        val subs = container.<T>getCastedSubscribers();
+        val eventContainer = container.<T>getCastedEventContainer();
         eventContainer.getConsumer().accept(event, subs);
         LoaderImpl.logger.debug("Called event: {}", event.getType().getName());
     }
 
     @Data
     static class ContainerWrapper {
-        final EventContainerImpl<?> eventContainer;
+        final EventContainerImpl<? extends Event<?>> eventContainer;
         @EqualsAndHashCode.Exclude
-        final Collection<SubscriberContainer<?>> subscribers;
+        final Collection<SubscriberContainer<? extends Event<?>>> subscribers;
+
+        @SuppressWarnings("unchecked")
+        <T extends Event<T>> EventContainerImpl<T> getCastedEventContainer() {
+            return (EventContainerImpl<T>) eventContainer;
+        }
+
+        @SuppressWarnings("unchecked")
+        <T extends Event<T>> Collection<SubscriberContainer<T>> getCastedSubscribers() {
+            return (Collection<SubscriberContainer<T>>) (Object) subscribers;
+        }
     }
 }

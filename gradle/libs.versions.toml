@@ -1,0 +1,15 @@
+[versions]
+mixinextras = "0.2.0"
+
+[libraries]
+mixinextras_fabric = { module = "com.github.llamalad7.mixinextras:mixinextras-fabric", version.ref = "mixinextras" }
+
+[bundles]
+mixinsextras = ["mixinextras_fabric"]
+
+[plugins]
+fabric_loom = { id = "fabric-loom", version = "1.4-SNAPSHOT" }
+maven_publish = { id = "maven-publish" }
+spotless = { id = "com.diffplug.spotless", version = "6.22.0" }
+intellij = { id = "org.jetbrains.intellij", version = "1.16.1-SNAPSHOT" }
+lombok = { id = "io.freefair.lombok", version = "8.4" }
