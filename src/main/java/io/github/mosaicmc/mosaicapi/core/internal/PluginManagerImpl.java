@@ -1,19 +1,19 @@
 package io.github.mosaicmc.mosaicapi.core.internal;
 
-import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
+import com.google.common.collect.ImmutableList;
 import io.github.mosaicmc.mosaicapi.core.api.PluginContainer;
 import io.github.mosaicmc.mosaicapi.core.api.PluginEntrypoint;
 import io.github.mosaicmc.mosaicapi.core.api.PluginManager;
+import lombok.Data;
 import lombok.Getter;
 import lombok.val;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
-import net.fabricmc.loader.api.metadata.ModMetadata;
 import org.slf4j.LoggerFactory;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Internal class, used for plugin management.
@@ -21,45 +21,50 @@ import java.util.concurrent.ConcurrentHashMap;
 final class PluginManagerImpl implements PluginManager {
     private final FabricLoader fabricLoader;
     @Getter
-    private final BiMap<String, PluginContainer> plugins;
+    private final ImmutableBiMap<String, PluginContainer> plugins;
 
     PluginManagerImpl() {
         this.fabricLoader = FabricLoader.getInstance();
         this.plugins = generatePlugins();
     }
 
-    private BiMap<String, PluginContainer> generatePlugins() {
+    private ImmutableBiMap<String, PluginContainer> generatePlugins() {
         val entrypointContainers = fabricLoader.getEntrypointContainers("plugin", PluginEntrypoint.class);
-
-        if (entrypointContainers.isEmpty()) return ImmutableBiMap.of();
-
-        val pluginMap = new ConcurrentHashMap<String, PluginContainerImpl>();
-
-        entrypointContainers.forEach(entry -> addPlugin(pluginMap, entry));
-
-        return ImmutableBiMap.copyOf(pluginMap);
-    }
-
-    private void addPlugin(Map<String, PluginContainerImpl> pluginMap, EntrypointContainer<PluginEntrypoint> entrypointContainer) {
-        val metadata = entrypointContainer.getProvider().getMetadata();
-        val entrypoint = entrypointContainer.getEntrypoint();
-
-        if (pluginMap.containsKey(metadata.getId())) {
-            throw new IllegalStateException("Duplicate initialization points. Plugin: " + metadata.getId());
+        if (entrypointContainers.isEmpty()) {
+            return ImmutableBiMap.of();
         }
-
-        val container = createPluginContainer(metadata, entrypoint);
-
-        pluginMap.put(metadata.getId(), container);
-        entrypoint.plugin.initialize(container);
+        return entrypointContainers
+                .stream()
+                .collect(Collectors.groupingBy(
+                        HashedMetadata::from,
+                        Collectors.mapping(EntrypointContainer::getEntrypoint, ImmutableList.toImmutableList())
+                ))
+                .entrySet()
+                .stream()
+                .collect(ImmutableBiMap.toImmutableBiMap(
+                        entry -> entry.getKey().id,
+                        entry -> createPluginContainer(entry.getKey(), entry.getValue())
+                ));
     }
 
-    private PluginContainerImpl createPluginContainer(ModMetadata metadata, PluginEntrypoint entrypoint) {
-        val id = metadata.getId();
-        val name = metadata.getName();
-        val description = metadata.getDescription();
-        val logger = LoggerFactory.getLogger(name);
+    private PluginContainer createPluginContainer(HashedMetadata metadata, List<PluginEntrypoint> entrypoints) {
+        val logger = LoggerFactory.getLogger(metadata.name);
 
-        return new PluginContainerImpl(id, name, description, entrypoint, logger);
+        PluginContainerImpl pluginContainer = new PluginContainerImpl(metadata.id, metadata.name, metadata.description, entrypoints, logger);
+        pluginContainer.initialize();
+
+        return pluginContainer;
+    }
+
+    @Data
+    private static class HashedMetadata {
+        private final String id;
+        private final String name;
+        private final String description;
+
+        static HashedMetadata from(EntrypointContainer<PluginEntrypoint> entrypoint) {
+            val metadata = entrypoint.getProvider().getMetadata();
+            return new HashedMetadata(metadata.getId(), metadata.getName(), metadata.getDescription());
+        }
     }
 }

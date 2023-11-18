@@ -2,11 +2,12 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <option name="defaultObfuscationEnv" value="named:intermediary" />
-        <option name="inMapFileNamedIntermediary" value="$USER_HOME$/.gradle/caches/fabric-loom/23w45a/net.fabricmc.yarn.23w45a.23w45a+build.10/mappings.tiny" />
-        <option name="outMapFileNamedIntermediary" value="$PROJECT_DIR$/build/loom-cache/mixin-map-net.fabricmc.yarn.23w45a.23w45a+build.10.main.tiny" />
+        <option name="inMapFileNamedIntermediary" value="$USER_HOME$/.gradle/caches/fabric-loom/23w46a/net.fabricmc.yarn.23w46a.23w46a+build.1/mappings.tiny" />
+        <option name="outMapFileNamedIntermediary" value="$PROJECT_DIR$/build/loom-cache/mixin-map-net.fabricmc.yarn.23w46a.23w46a+build.1.main.tiny" />
         <option name="outRefMapFile" value="$PROJECT_DIR$/build/classes/java/main/MosaicAPI-refmap.json" />
         <option name="quiet" value="true" />
         <processorPath useClasspath="false">
@@ -18,8 +19,8 @@
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <option name="defaultObfuscationEnv" value="named:intermediary" />
-        <option name="inMapFileNamedIntermediary" value="$USER_HOME$/.gradle/caches/fabric-loom/23w45a/net.fabricmc.yarn.23w45a.23w45a+build.10/mappings.tiny" />
-        <option name="outMapFileNamedIntermediary" value="$PROJECT_DIR$/build/loom-cache/mixin-map-net.fabricmc.yarn.23w45a.23w45a+build.10.test.tiny" />
+        <option name="inMapFileNamedIntermediary" value="$USER_HOME$/.gradle/caches/fabric-loom/23w46a/net.fabricmc.yarn.23w46a.23w46a+build.1/mappings.tiny" />
+        <option name="outMapFileNamedIntermediary" value="$PROJECT_DIR$/build/loom-cache/mixin-map-net.fabricmc.yarn.23w46a.23w46a+build.1.test.tiny" />
         <option name="outRefMapFile" value="$PROJECT_DIR$/build/classes/java/test/test-MosaicAPI-refmap.json" />
         <option name="quiet" value="true" />
         <processorPath useClasspath="false">

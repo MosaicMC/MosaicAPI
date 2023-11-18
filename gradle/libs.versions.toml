@@ -1,9 +1,9 @@
 [versions]
 mixinextras = "0.2.0"
 vineflower = "1.9.3"
-minecraft = "23w45a"
+minecraft = "23w46a"
 fabricloader = "0.14.24"
-yarn = "23w45a+build.10"
+yarn = "23w46a+build.1"
 fabricloom = "1.4-SNAPSHOT"
 spotless = "6.22.0"
 intellij = "1.16.1-SNAPSHOT"

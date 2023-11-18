@@ -2,14 +2,18 @@ package io.github.mosaicmc.mosaicapi.core.internal;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import io.github.mosaicmc.mosaicapi.core.api.*;
+import com.google.common.collect.ImmutableSet;
+import io.github.mosaicmc.mosaicapi.core.api.Event;
+import io.github.mosaicmc.mosaicapi.core.api.EventManager;
+import io.github.mosaicmc.mosaicapi.core.api.PluginContainer;
+import io.github.mosaicmc.mosaicapi.core.api.SubscriberContainer;
 import io.github.mosaicmc.mosaicapi.utils.Type;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.val;
 
-import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -18,27 +22,45 @@ import java.util.concurrent.ConcurrentHashMap;
 final class EventManagerImpl implements EventManager {
     private final BiMap<Type<?>, ContainerWrapper> handlerMap;
 
-    EventManagerImpl(BiMap<SubscriberRegistryImpl, EventRegistryImpl> registryMap) {
-        this.handlerMap = registryMap.isEmpty() ? ImmutableBiMap.of() : subscribersToEvents(registryMap);
+    EventManagerImpl(BiMap<String, ? super PluginContainer> plugins) {
+        this.handlerMap = getRegistriesFromPlugins(plugins);
     }
 
-    private BiMap<Type<?>, ContainerWrapper> subscribersToEvents(BiMap<SubscriberRegistryImpl, EventRegistryImpl> registryMap) {
+    private BiMap<Type<?>, ContainerWrapper> getRegistriesFromPlugins(BiMap<String, ? super PluginContainerImpl> plugins) {
+        val builder = new ConcurrentHashMap<Type<?>, ContainerWrapper>();
 
-        val builder = new ConcurrentHashMap<Type<?>, ContainerWrapper>(registryMap.size());
-        registerEvents(builder, registryMap.values());
-        registerSubscribers(builder, registryMap.keySet());
+        plugins.values().parallelStream().forEach(plugin -> {
+            val subscribersBuilder = ConcurrentHashMap.<SubscriberRegistryImpl>newKeySet();
+            val eventsBuilder = ConcurrentHashMap.<EventRegistryImpl>newKeySet();
+            
+            loadPluginRegistries((PluginContainerImpl) plugin, subscribersBuilder, eventsBuilder);
+            registerEvents(builder, ImmutableSet.copyOf(eventsBuilder));
+            registerSubscribers(builder, ImmutableSet.copyOf(subscribersBuilder));
+        });
+
         return ImmutableBiMap.copyOf(builder);
     }
 
-    private void registerEvents(Map<Type<?>, ContainerWrapper> builder, Collection<EventRegistryImpl> eventRegs) {
+    private void loadPluginRegistries(PluginContainerImpl plugin, Set<SubscriberRegistryImpl> subscribersBuilder, Set<EventRegistryImpl> eventsBuilder) {
+        val subscriberRegistry = new SubscriberRegistryImpl(plugin);
+        val eventRegistry = new EventRegistryImpl(plugin);
+
+        plugin.getEntrypoints().forEach((entrypoint -> entrypoint.registerEvent(eventRegistry))) ;
+        plugin.getEntrypoints().forEach((entrypoint -> entrypoint.registerSubscribers(subscriberRegistry)));
+
+        subscribersBuilder.add(subscriberRegistry);
+        eventsBuilder.add(eventRegistry);
+    }
+
+    private void registerEvents(Map<Type<?>, ContainerWrapper> builder, Set<EventRegistryImpl> eventRegs) {
         eventRegs.stream()
                 .flatMap(registry -> registry.getEvents().entrySet().parallelStream())
                 .forEach(entry -> builder.put(entry.getKey(), new ContainerWrapper(entry.getValue(), ConcurrentHashMap.newKeySet())));
     }
 
-    private void registerSubscribers(Map<Type<?>, ContainerWrapper> builder, Collection<SubscriberRegistryImpl> subscriberRegs) {
-        subscriberRegs.stream()
-                .flatMap(registry -> registry.getSubscribers().entrySet().parallelStream())
+    private void registerSubscribers(Map<Type<?>, ContainerWrapper> builder, Set<SubscriberRegistryImpl> subscriberRegs) {
+        subscriberRegs.parallelStream()
+                .flatMap(registry -> registry.getSubscribers().entrySet().stream())
                 .forEach(entry -> {
                     val type = entry.getKey();
                     val sub = entry.getValue();
@@ -50,15 +72,18 @@ final class EventManagerImpl implements EventManager {
                 });
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public <T extends Event<T>> void callEvent(T event) {
         val container = handlerMap.get(event.getType());
+
         if (container == null) throw new IllegalStateException("Not registered event: " + event.getType().getName());
         if (container.subscribers.isEmpty()) return;
+
         val subs = container.<T>getCastedSubscribers();
         val eventContainer = container.<T>getCastedEventContainer();
+
         eventContainer.getConsumer().accept(event, subs);
+
         LoaderImpl.logger.debug("Called event: {}", event.getType().getName());
     }
 
@@ -66,7 +91,7 @@ final class EventManagerImpl implements EventManager {
     static class ContainerWrapper {
         final EventContainerImpl<? extends Event<?>> eventContainer;
         @EqualsAndHashCode.Exclude
-        final Collection<SubscriberContainer<? extends Event<?>>> subscribers;
+        final Set<SubscriberContainerImpl<? extends Event<?>>> subscribers;
 
         @SuppressWarnings("unchecked")
         <T extends Event<T>> EventContainerImpl<T> getCastedEventContainer() {
@@ -74,8 +99,8 @@ final class EventManagerImpl implements EventManager {
         }
 
         @SuppressWarnings("unchecked")
-        <T extends Event<T>> Collection<SubscriberContainer<T>> getCastedSubscribers() {
-            return (Collection<SubscriberContainer<T>>) (Object) subscribers;
+        <T extends Event<T>> Set<SubscriberContainer<T>> getCastedSubscribers() {
+            return (Set<SubscriberContainer<T>>) (Object) subscribers;
         }
     }
 }

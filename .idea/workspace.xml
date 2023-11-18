@@ -4,12 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6b17c91-b86c-4364-a3c0-337342463c80" name="Changes" comment="Added libs.versions.toml">
+    <list default="true" id="f6b17c91-b86c-4364-a3c0-337342463c80" name="Changes" comment="Moved dependencies to libs.versions.toml">
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/test/TestClass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/test/TestOverride.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/MosaicAPI.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/MosaicAPI.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/MosaicAPI.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/MosaicAPI.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/api/EventRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/api/EventRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/api/PluginEntrypoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/api/PluginEntrypoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/api/PluginManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/api/PluginManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/EventContainerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/EventContainerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/EventManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/EventManagerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/EventRegistryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/EventRegistryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/LoaderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/LoaderImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/PluginContainerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/PluginContainerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/PluginManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/PluginManagerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/SubscriberRegistryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/core/internal/SubscriberRegistryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/test/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/utils/InitHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/utils/InitHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fabric.mod.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fabric.mod.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,9 +65,9 @@
       <list>
         <option value="AnnotationType" />
         <option value="package-info" />
-        <option value="Class" />
         <option value="Interface" />
         <option value="Record" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -92,35 +109,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "try-3",
-    "jdk.selected.JAVA_MODULE": "liberica-21",
-    "last_opened_file_path": "/home/kittech/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.idea/ideaIU/2023.2.4/1eab26d501fe1c8184d70616a64bdc8efc0b7ecb/ideaIU-2023.2.4/lib/ant/lib/ant.jar",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Global Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;try-3&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;liberica-21&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/kittech/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.idea/ideaIU/2023.2.4/1eab26d501fe1c8184d70616a64bdc8efc0b7ecb/ideaIU-2023.2.4/lib/ant/lib/ant.jar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.new.ui&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;JAVA&quot;
+    ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/io/github/mosaicmc/mosaicapi/internal" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.MosaicAPI [runServer]">
+  <component name="RunManager" selected="Application.Minecraft Server">
     <configuration name="MosaicAPI [runServer]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -143,6 +165,13 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="Scratch" type="Java Scratch" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Scratch" />
+      <option name="SCRATCH_FILE_URL" value="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="mosaicapi.test" />
       <method v="2">
@@ -156,6 +185,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Java Scratch.Scratch" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -238,7 +272,16 @@
       <workItem from="1699905384128" duration="1290000" />
       <workItem from="1699983828101" duration="3080000" />
       <workItem from="1700040326535" duration="1565000" />
-      <workItem from="1700047916425" duration="3130000" />
+      <workItem from="1700047916425" duration="3691000" />
+      <workItem from="1700079711678" duration="1228000" />
+      <workItem from="1700158011349" duration="4896000" />
+      <workItem from="1700244269880" duration="30000" />
+      <workItem from="1700244308485" duration="2339000" />
+      <workItem from="1700253001341" duration="599000" />
+      <workItem from="1700253615614" duration="14000" />
+      <workItem from="1700253642368" duration="1249000" />
+      <workItem from="1700303530730" duration="2113000" />
+      <workItem from="1700308697296" duration="12924000" />
     </task>
     <task id="LOCAL-00001" summary="Cleanup">
       <option name="closed" value="true" />
@@ -432,7 +475,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700050180007</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Moved dependencies to libs.versions.toml">
+      <option name="closed" value="true" />
+      <created>1700051832979</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1700051832979</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -462,6 +513,7 @@
     <MESSAGE value="Renamed stuff" />
     <MESSAGE value="Moved load plugins function to LoaderImpl" />
     <MESSAGE value="Added libs.versions.toml" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added libs.versions.toml" />
+    <MESSAGE value="Moved dependencies to libs.versions.toml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Moved dependencies to libs.versions.toml" />
   </component>
 </project>

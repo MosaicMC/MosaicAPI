@@ -23,5 +23,5 @@ public interface PluginManager {
      *
      * @return A bidirectional map of plugin names to plugin containers.
      */
-    BiMap<String, PluginContainer> getPlugins();
+    BiMap<String, ? super PluginContainer> getPlugins();
 }

@@ -1,7 +1,6 @@
 package io.github.mosaicmc.mosaicapi.core.internal;
 
 import io.github.mosaicmc.mosaicapi.core.api.Event;
-import io.github.mosaicmc.mosaicapi.core.api.SubscriberContainer;
 import io.github.mosaicmc.mosaicapi.core.api.SubscriberRegistry;
 import io.github.mosaicmc.mosaicapi.utils.Type;
 import lombok.EqualsAndHashCode;
@@ -18,7 +17,7 @@ import java.util.function.Consumer;
 final class SubscriberRegistryImpl implements SubscriberRegistry {
     @Getter
     @EqualsAndHashCode.Exclude
-    private final Map<Type<?>, SubscriberContainer<?>> subscribers;
+    private final Map<Type<?>, SubscriberContainerImpl<?>> subscribers;
     private final PluginContainerImpl plugin;
 
     SubscriberRegistryImpl(PluginContainerImpl plugin) {

@@ -7,8 +7,8 @@ import io.github.mosaicmc.mosaicapi.utils.Type;
 import lombok.Getter;
 import lombok.val;
 
-import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
 
@@ -27,23 +27,16 @@ final class EventRegistryImpl implements EventRegistry {
 
     @Override
     public <T extends Event<T>> void register(Type<T> event) {
-        events.put(event, new EventContainerImpl<>(event, (e, subs) -> {
-            for (val sub : subs) {
-                sub.getConsumer().accept(e);
-            }
-        }, plugin));
+        register(event, (e, subs) -> subs.forEach(sub -> sub.getConsumer().accept(e)));
     }
 
     @Override
     public <T extends Event<T>> void registerParallel(Type<T> event) {
-        events.put(event, new EventContainerImpl<>(event,
-                (e, subs) -> subs.parallelStream().forEach(sub -> sub.getConsumer().accept(e)),
-                plugin
-        ));
+        register(event, (e, subs) -> subs.parallelStream().forEach(sub -> sub.getConsumer().accept(e)));
     }
 
     @Override
-    public <T extends Event<T>> void register(Type<T> event, BiConsumer<T, Collection<SubscriberContainer<T>>> consumer) {
+    public <T extends Event<T>> void register(Type<T> event, BiConsumer<T, Set<SubscriberContainer<T>>> consumer) {
         val container = new EventContainerImpl<>(event, consumer, plugin);
         events.put(event, container);
     }

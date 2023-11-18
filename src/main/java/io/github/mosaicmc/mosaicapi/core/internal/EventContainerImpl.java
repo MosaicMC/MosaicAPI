@@ -6,7 +6,7 @@ import io.github.mosaicmc.mosaicapi.utils.Type;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Collection;
+import java.util.Set;
 import java.util.function.BiConsumer;
 
 /**
@@ -18,6 +18,6 @@ import java.util.function.BiConsumer;
 final class EventContainerImpl<T extends Event<T>> {
     private final Type<T> type;
     @EqualsAndHashCode.Exclude
-    private final BiConsumer<T, Collection<SubscriberContainer<T>>> consumer;
+    private final BiConsumer<T, Set<SubscriberContainer<T>>> consumer;
     private final PluginContainerImpl plugin;
 }

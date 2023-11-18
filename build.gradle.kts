@@ -36,14 +36,14 @@ val targetCompatibility = JavaVersion.VERSION_21
 val archivesBaseName = "archivesBaseName".configKey
 val dataFormat = SimpleDateFormat("yyyy.MM.dd.HH").format(Date())!!
 
-version = "$dataFormat+${"mod_version".configKey}+${libs.versions.minecraft}"
+version = "$dataFormat+${libs.versions.minecraft.get()}+${"mod_version".configKey}"
 
 tasks.processResources {
     expand(mapOf(
-        "version" to project.version,
+        "version" to version,
         "mod_id" to "mod_id".configKey,
-        "loader_version" to libs.versions.fabricloader,
-        "minecraft_version" to libs.versions.minecraft,
+        "loader_version" to libs.versions.fabricloader.get(),
+        "minecraft_version" to libs.versions.minecraft.get(),
         "java_version" to "$sourceCompatibility",
     ))
 }

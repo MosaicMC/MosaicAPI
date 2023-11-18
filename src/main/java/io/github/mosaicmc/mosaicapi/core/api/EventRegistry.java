@@ -3,7 +3,7 @@ package io.github.mosaicmc.mosaicapi.core.api;
 import io.github.mosaicmc.mosaicapi.utils.Type;
 import org.jetbrains.annotations.ApiStatus;
 
-import java.util.Collection;
+import java.util.Set;
 import java.util.function.BiConsumer;
 
 /**
@@ -34,5 +34,5 @@ public interface EventRegistry {
      * @param consumer the consumer that handles the event
      * @param <T>      the type of the event
      */
-    <T extends Event<T>> void register(Type<T> event, BiConsumer<T, Collection<SubscriberContainer<T>>> consumer);
+    <T extends Event<T>> void register(Type<T> event, BiConsumer<T, Set<SubscriberContainer<T>>> consumer);
 }
